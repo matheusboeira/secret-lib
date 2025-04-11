@@ -1,29 +1,25 @@
+import { useState } from 'react'
 import { Tooltip } from '../lib'
 
 function App() {
+  const [isOpen, setOpen] = useState(false)
+
   return (
-    <div className="p-4">
+    <div className="p-4 h-dvh">
       <h1 className="text-2xl mb-4">Preview da Lib</h1>
-      <Tooltip content={'Hello, world!'}>
+      <Tooltip
+        content={'Hello, world!'}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onClick={(e) => {
+          console.log('?', e.metaKey)
+        }}
+      >
         <button type="button" className="border border-gray-200">
           Botão 1
         </button>
       </Tooltip>
-      <Tooltip content={'Hello, world!'}>
-        <button type="button" className="border border-gray-200">
-          Botão 2
-        </button>
-      </Tooltip>
-      <Tooltip content={'Hello, world!'}>
-        <button type="button" className="border border-gray-200">
-          Botão 3
-        </button>
-      </Tooltip>
-      <Tooltip content={'Hello, world!'}>
-        <button type="button" className="border border-gray-200">
-          Botão 4
-        </button>
-      </Tooltip>
+      {isOpen ? 'sim' : 'não'}
     </div>
   )
 }

@@ -1,22 +1,32 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallbackRefs } from '../use-callback-ref'
 
 interface UseTransitionVisibilityOptions {
   enterDelay?: number
   exitDelay?: number
   isDisabled?: boolean
+  onEnter?: () => void
+  onExit?: () => void
 }
 
 export const useTransitionVisibility = ({
   enterDelay = 100,
   exitDelay = 200,
-  isDisabled = false
+  isDisabled = false,
+  onEnter,
+  onExit
 }: UseTransitionVisibilityOptions = {}) => {
   const [isMounted, setIsMounted] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const rafRef = useRef<number | null>(null)
   const timeoutRef = useRef<number | null>(null)
 
-  const show = useCallback(() => {
+  const { onEnter: onEnterRef, onExit: onExitRef } = useCallbackRefs({
+    onEnter,
+    onExit
+  })
+
+  const onShow = useCallback(() => {
     if (isDisabled) return
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
     setIsMounted(true)
@@ -24,19 +34,21 @@ export const useTransitionVisibility = ({
     rafRef.current = requestAnimationFrame(() => {
       timeoutRef.current = window.setTimeout(() => {
         setIsVisible(true)
+        onEnterRef?.()
       }, enterDelay)
     })
-  }, [enterDelay, isDisabled])
+  }, [enterDelay, isDisabled, onEnterRef])
 
-  const hide = useCallback(() => {
+  const onHide = useCallback(() => {
     if (isDisabled) return
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
     setIsVisible(false)
+    onExitRef?.()
 
     timeoutRef.current = window.setTimeout(() => {
       setIsMounted(false)
     }, exitDelay)
-  }, [exitDelay, isDisabled])
+  }, [exitDelay, isDisabled, onExitRef])
 
   useEffect(() => {
     return () => {
@@ -48,7 +60,7 @@ export const useTransitionVisibility = ({
   return {
     isMounted,
     isVisible,
-    show,
-    hide
+    onShow,
+    onHide
   }
 }

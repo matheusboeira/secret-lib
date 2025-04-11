@@ -4,12 +4,13 @@ type ClassNames = {
 }
 
 type MouseEvents = {
-  onMouseEnter?: React.MouseEventHandler<HTMLDivElement>
-  onMouseLeave?: React.MouseEventHandler<HTMLDivElement>
-  onMouseMove?: React.MouseEventHandler<HTMLDivElement>
+  onMouseEnter?: React.MouseEventHandler<HTMLElement>
+  onMouseLeave?: React.MouseEventHandler<HTMLElement>
+  onMouseMove?: React.MouseEventHandler<HTMLElement>
+  onClick?: React.MouseEventHandler<HTMLElement>
 }
 
-export type TooltipProps = {
+export type TooltipProps = Omit<MouseEvents, 'onMouseMove'> & {
   /**
    * Children to be wrapped by the tooltip.
    */

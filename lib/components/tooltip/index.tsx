@@ -1,6 +1,7 @@
 import { cloneElement, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useTransitionVisibility } from '../../hooks'
+import { useCallbackRefs } from '../../hooks/use-callback-ref'
 import { cn } from '../../utils/cn'
 import type { TooltipProps } from './tooltip.type'
 
@@ -8,9 +9,12 @@ const OFFSET_BORDER = 10
 
 export const Tooltip = ({
   children,
-  offset = { x: 10, y: 15 },
   content,
   classNames,
+  onMouseEnter,
+  onMouseLeave,
+  onClick,
+  offset = { x: 10, y: 15 },
   portalChildren = document.body,
   isDisabled = false
 }: TooltipProps) => {
@@ -18,13 +22,13 @@ export const Tooltip = ({
   const tooltipRef = useRef<HTMLDivElement | null>(null)
   const animationFrameRef = useRef<number | null>(null)
   const timeoutRef = useRef<number | null>(null)
+  const { onClick: onClickRef } = useCallbackRefs({ onClick })
 
-  const {
-    isVisible,
-    isMounted,
-    show: onMouseEnter,
-    hide: onMouseLeave
-  } = useTransitionVisibility({ isDisabled })
+  const { isVisible, isMounted, onShow, onHide } = useTransitionVisibility({
+    isDisabled,
+    onEnter: onMouseEnter as () => void,
+    onExit: onMouseLeave as () => void
+  })
 
   const calculateCoordinates = (e: React.MouseEvent) => {
     const { innerWidth, innerHeight } = window
@@ -75,8 +79,9 @@ export const Tooltip = ({
   }, [])
 
   const ClonedElement = cloneElement(children, {
-    onMouseEnter,
-    onMouseLeave,
+    onClick: onClickRef,
+    onMouseEnter: onShow,
+    onMouseLeave: onHide,
     onMouseMove
   })
 
@@ -94,10 +99,6 @@ export const Tooltip = ({
               isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90',
               classNames?.base
             )}
-            style={{
-              left: `${coordinatesRef.current.x}px`,
-              top: `${coordinatesRef.current.y}px`
-            }}
           >
             <div
               className={cn(
