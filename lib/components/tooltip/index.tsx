@@ -1,9 +1,8 @@
-import { AnimatePresence, LazyMotion, domMin, m } from 'motion/react'
-import { cloneElement, useEffect, useRef, useState } from 'react'
+import { cloneElement, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
+import { useTransitionVisibility } from '../../hooks'
 import { cn } from '../../utils/cn'
 import type { TooltipProps } from './tooltip.type'
-import { tooltipVariants } from './tooltip.variants'
 
 const OFFSET_BORDER = 10
 
@@ -15,10 +14,17 @@ export const Tooltip = ({
   portalChildren = document.body,
   isDisabled = false
 }: TooltipProps) => {
-  const [show, setShow] = useState(false)
   const coordinatesRef = useRef({ x: 0, y: 0 })
   const tooltipRef = useRef<HTMLDivElement | null>(null)
   const animationFrameRef = useRef<number | null>(null)
+  const timeoutRef = useRef<number | null>(null)
+
+  const {
+    isVisible,
+    isMounted,
+    show: onMouseEnter,
+    hide: onMouseLeave
+  } = useTransitionVisibility({ isDisabled })
 
   const calculateCoordinates = (e: React.MouseEvent) => {
     const { innerWidth, innerHeight } = window
@@ -46,8 +52,6 @@ export const Tooltip = ({
     const { x, y } = calculateCoordinates(e)
     coordinatesRef.current = { x, y }
 
-    if (!show) setShow(true)
-
     if (!animationFrameRef.current) {
       animationFrameRef.current = requestAnimationFrame(() => {
         if (tooltipRef.current) {
@@ -64,16 +68,11 @@ export const Tooltip = ({
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
     }
   }, [])
-
-  const onMouseEnter = () => {
-    !isDisabled && setShow(true)
-  }
-
-  const onMouseLeave = () => {
-    !isDisabled && setShow(false)
-  }
 
   const ClonedElement = cloneElement(children, {
     onMouseEnter,
@@ -82,39 +81,37 @@ export const Tooltip = ({
   })
 
   return (
-    <AnimatePresence>
-      <LazyMotion features={domMin}>
-        {ClonedElement}
-        {createPortal(
-          <AnimatePresence>
-            {show && (
-              <m.div
-                ref={tooltipRef}
-                variants={tooltipVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                className={cn(
-                  'fixed pointer-events-none w-max h-fit z-50',
-                  classNames?.base
-                )}
-              >
-                <div
-                  className={cn(
-                    'bg-white dark:bg-black text-black dark:text-white py-1 px-2 rounded-lg',
-                    'border border-gray-200',
-                    classNames?.content
-                  )}
-                >
-                  {typeof content === 'function' ? content(show) : content}
-                </div>
-              </m.div>
+    <>
+      {ClonedElement}
+      {isMounted &&
+        createPortal(
+          <div
+            ref={tooltipRef}
+            className={cn(
+              'fixed pointer-events-none w-max h-fit z-50',
+              'will-change-transform transition-all duration-200 ease-out transform',
+              'motion-reduce:transition-none motion-reduce:hover:transform-none',
+              isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90',
+              classNames?.base
             )}
-          </AnimatePresence>,
+            style={{
+              left: `${coordinatesRef.current.x}px`,
+              top: `${coordinatesRef.current.y}px`
+            }}
+          >
+            <div
+              className={cn(
+                'bg-white dark:bg-black text-black dark:text-white py-1 px-2 rounded-lg',
+                'border border-gray-200 dark:border-gray-600 shadow-sm',
+                classNames?.content
+              )}
+            >
+              {typeof content === 'function' ? content(isVisible) : content}
+            </div>
+          </div>,
           portalChildren
         )}
-      </LazyMotion>
-    </AnimatePresence>
+    </>
   )
 }
 

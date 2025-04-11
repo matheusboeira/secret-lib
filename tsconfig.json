@@ -2,13 +2,12 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"jsx": "react-jsx",
-		"module": "ESNext",
-		"moduleResolution": "node",
+		"module": "Node16",
+		"moduleResolution": "node16",
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"types": ["react", "react-dom"]
 	},
-	"include": ["src", "lib"],
-	"exclude": ["**/node_modules", "**/dist", "**/.turbo"]
+	"include": ["src", "lib"]
 }
