@@ -21,7 +21,6 @@ export const Tooltip = ({
   const coordinatesRef = useRef({ x: 0, y: 0 })
   const tooltipRef = useRef<HTMLDivElement | null>(null)
   const animationFrameRef = useRef<number | null>(null)
-  const timeoutRef = useRef<number | null>(null)
   const { onClick: onClickRef } = useCallbackRefs({ onClick })
 
   const { isVisible, isMounted, onShow, onHide } = useTransitionVisibility({
@@ -72,9 +71,6 @@ export const Tooltip = ({
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
     }
   }, [])
 
@@ -94,7 +90,7 @@ export const Tooltip = ({
             ref={tooltipRef}
             className={cn(
               'fixed pointer-events-none w-max h-fit z-50',
-              'will-change-transform transition-all duration-200 ease-out transform',
+              'will-change-auto transition-all duration-200 ease-out transform',
               'motion-reduce:transition-none motion-reduce:hover:transform-none',
               isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90',
               classNames?.base
