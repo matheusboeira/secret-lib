@@ -8,5 +8,7 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
-  target: 'esnext'
+  target: 'esnext',
+  treeshake: true,
+  external: ['react', 'react-dom']
 })
