@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useCallbackRefs } from '../use-callback-ref'
+import { useCallbackRefs } from '../use-callback-refs'
 import type { DebounceEvent } from './use-debounce-listener'
 
 type CallbackFunction<T extends unknown[]> = (...args: T) => void
@@ -12,12 +12,12 @@ export type UseDebounceProps<C extends unknown[] = []> = {
   debounceEventName?: string
 }
 
-export function useDebounce<T extends unknown[] | string[]>({
+export const useDebounce = <T extends unknown[] | string[]>({
   callback,
   onFinish,
   debounceEventName,
   delay = 1000
-}: UseDebounceProps<T>) {
+}: UseDebounceProps<T>) => {
   const [isDebouncing, setDebouncing] = useState(false)
   const timeoutRef = useRef<number | null>(null)
 

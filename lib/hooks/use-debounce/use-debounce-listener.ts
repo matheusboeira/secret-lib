@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import type { UseDebounceProps } from './use-debounce'
+import type { UseDebounceProps } from '.'
 
 export type DebounceEvent = {
   isDebouncing: boolean

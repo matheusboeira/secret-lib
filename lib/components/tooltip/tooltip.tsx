@@ -1,7 +1,7 @@
 import { cloneElement, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useTransitionVisibility } from '../../hooks'
-import { useCallbackRefs } from '../../hooks/use-callback-ref'
+import { useCallbackRefs } from '../../hooks/use-callback-refs'
 import { cn } from '../../utils/cn'
 import type { TooltipProps } from './tooltip.type'
 
