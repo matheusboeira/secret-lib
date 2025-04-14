@@ -10,7 +10,6 @@
 
 ## ✨ Por que usar?
 
-- 📦 **Leve**: menos de **3 KB gzip** no core
 - ⚙️ **Componentes úteis** que normalmente faltam em outras libs
 - 🧠 **Hooks prontos** para problemas recorrentes do dia a dia
 - 🎯 Foco em **cobrir lacunas** de outras bibliotecas
