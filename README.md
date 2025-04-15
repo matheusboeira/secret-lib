@@ -1,6 +1,6 @@
 # 🔧 secret-lib
 
-**Uma biblioteca de componentes e hooks React essenciais, leves e prontos pra cenários que outras libs ignoram.**
+**A lightweight React component and hook library, designed for essential use cases that other libs often overlook.**
 
 [![npm version](https://badgen.net/npm/v/secret-lib)](https://www.npmjs.com/package/secret-lib)
 [![bundlephobia](https://badgen.net/bundlephobia/minzip/secret-lib)](https://bundlephobia.com/package/secret-lib)
@@ -8,20 +8,20 @@
 
 ---
 
-## ✨ Por que usar?
+## ✨ Why use it?
 
-- ⚙️ **Componentes úteis** que normalmente faltam em outras libs
-- 🧠 **Hooks prontos** para problemas recorrentes do dia a dia
-- 🎯 Foco em **cobrir lacunas** de outras bibliotecas
-- 💅 Totalmente compatível com **TailwindCSS**
+- ⚙️ **Useful components** usually missing in other libraries
+- 🧠 **Ready-to-use hooks** for everyday recurring problems
+- 🎯 Focused on **filling the gaps** left by other libraries
+- 💅 Fully compatible with **TailwindCSS**
 
 ---
 
-## 🚀 Instalação
+## 🚀 Installation
 
 ```bash
 pnpm add secret-lib
-# ou
+# or
 npm install secret-lib
-# ou
+# or
 yarn add secret-lib
