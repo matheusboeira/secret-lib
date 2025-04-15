@@ -1,12 +1,12 @@
 {
 	"name": "secret-lib",
-	"version": "0.1.10",
+	"version": "0.1.11",
 	"license": "MIT",
 	"author": "Matheus Boeira",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/matheusboeira/secret-lib.git"
-  },
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/matheusboeira/secret-lib.git"
+	},
 	"keywords": [
 		"react",
 		"hooks",
@@ -16,7 +16,9 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.mjs",
 	"types": "dist/index.d.ts",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"exports": {
 		".": {
 			"import": "./dist/index.mjs",
