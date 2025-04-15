@@ -2,39 +2,33 @@
 	"name": "secret-lib",
 	"version": "0.1.11",
 	"license": "MIT",
-	"author": "Matheus Boeira",
+	"author": "Matheus Boeira <matheusb_dias@hotmail.com>",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/matheusboeira/secret-lib.git"
 	},
-	"keywords": [
-		"react",
-		"hooks",
-		"components",
-		"tailwindcss"
-	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": ["react", "hooks", "components", "tailwindcss"],
 	"main": "dist/index.cjs",
-	"module": "dist/index.mjs",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist"
-	],
+	"files": ["dist", "README.md", "LICENSE"],
+	"sideEffects": false,
+	"type": "module",
 	"exports": {
 		".": {
+			"types": "./dist/index.d.ts",
 			"import": "./dist/index.mjs",
 			"require": "./dist/index.cjs"
 		}
 	},
-	"sideEffects": false,
 	"scripts": {
-		"build": "tsup lib/index.ts --dts --format esm,cjs --out-dir dist",
+		"build": "vite build && tsc --emitDeclarationOnly --declaration --declarationDir dist --project tsconfig.build.json",
 		"prepublish": "npm run build",
 		"publish:major": "npm version major && npm publish --access public",
 		"publish:minor": "npm version minor && npm publish --access public",
 		"publish:patch": "npm version patch && npm publish --access public",
-		"analyze": "pnpm build && source-map-explorer dist/index.js dist/index.js.map",
-		"analyze:esm": "pnpm build && source-map-explorer dist/index.mjs dist/index.mjs.map",
-		"gzip-size": "pnpm build && gzip-size dist/index.js --raw",
 		"dev": "vite"
 	},
 	"peerDependencies": {
@@ -44,20 +38,18 @@
 	},
 	"dependencies": {
 		"clsx": "^2.0.0",
-		"tailwind-merge": "^3.2.0"
+		"tailwind-merge": "^3.2.0",
+		"tailwind-variants": "^1.0.0"
 	},
 	"devDependencies": {
-		"lodash": "^4.17.21",
+		"@biomejs/biome": "1.9.4",
 		"@types/lodash": "^4.17.16",
 		"@types/react": "^19.1.0",
 		"@types/react-dom": "^19.1.2",
 		"@vitejs/plugin-react": "^4.0.0",
 		"autoprefixer": "^10.0.0",
-		"gzip-size-cli": "^5.1.0",
 		"postcss": "^8.0.0",
 		"react-scan": "^0.3.3",
-		"source-map-explorer": "^2.5.3",
-		"tsup": "^8.4.0",
 		"typescript": "^5.0.0",
 		"vite": "^6.2.6",
 		"vite-tsconfig-paths": "^5.1.4"

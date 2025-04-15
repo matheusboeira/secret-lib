@@ -1,9 +1,9 @@
 {
 	"compilerOptions": {
 		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
 		"jsx": "react-jsx",
-		"module": "Node16",
-		"moduleResolution": "node16",
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
