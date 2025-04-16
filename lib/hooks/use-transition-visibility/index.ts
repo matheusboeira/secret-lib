@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useCallbackRefs } from '../use-callback-refs'
 
-interface UseTransitionVisibilityOptions {
+export type UseTransitionVisibilityOptions = {
   enterDelay?: number
   exitDelay?: number
   isDisabled?: boolean

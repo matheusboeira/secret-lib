@@ -36,7 +36,7 @@ export const useDebounce = <T extends unknown[] | string[]>({
 
       timeoutRef.current = setTimeout(() => {
         setDebouncing(false)
-        callbackRef(...(args as T))
+        callbackRef?.(...(args as T))
         onFinishRef?.(args as T)
       }, delay)
     },
