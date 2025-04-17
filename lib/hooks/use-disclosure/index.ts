@@ -8,6 +8,8 @@ export type UseDisclosureProps = {
   onOpenChange?: () => void
 }
 
+export type UseDisclosureReturn = ReturnType<typeof useDisclosure>
+
 export const useDisclosure = ({
   defaultOpen = false,
   onOpen,
