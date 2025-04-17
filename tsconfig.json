@@ -11,7 +11,8 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["src/*"],
-			"@/lib/*": ["lib/*"]
+			"@/lib/*": ["lib/*"],
+			"@/icons/*": ["lib/icons/*"]
 		}
 	},
 	"include": ["src", "lib"]

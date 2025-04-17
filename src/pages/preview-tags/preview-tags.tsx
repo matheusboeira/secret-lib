@@ -21,7 +21,6 @@ export const PreviewTags = () => {
           </TagItem>
         )}
       </Tags>
-      <pre>{JSON.stringify(state, null, 2)}</pre>
     </PageLayout>
   )
 }

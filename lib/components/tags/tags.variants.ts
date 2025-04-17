@@ -10,7 +10,7 @@ export const tags = createVariants({
     'min-h-10 select-none cursor-pointer'
   ],
   input: [
-    'flex flex-1 text-sm font-normal h-7 p-2 min-w-9 w-full',
+    'flex flex-1 text-sm font-normal h-7 p-2 min-w-32 w-full',
     'bg-blue-900 outline-none focus:outline-none'
   ],
   listItems: [
@@ -23,8 +23,12 @@ export const tags = createVariants({
     'top-full mt-2 pt-2'
   ],
   tagItem: [
-    'flex w-full items-center gap-2 px-3 py-0.5 rounded-lg h-fit',
-    'bg-white dark:bg-black text-black dark:text-white',
-    'hover:bg-gray-100 dark:hover:bg-gray-600'
+    'flex w-full items-center gap-2 px-3 py-0.5 rounded-lg min-h-9 h-fit',
+    'bg-transparent text-black dark:text-white',
+    'hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors duration-200',
+    'outline-primary outline-offset-4 focus-visible:outline-primary'
+  ],
+  checkedIcon: [
+    'size-4 transition-all duration-200 ease-in-out pointer-events-none'
   ]
 })

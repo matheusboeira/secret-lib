@@ -1,4 +1,16 @@
-export function useFilteredItems<T extends ArrayLike<object>>(
+const fuzzyMatch = (text: string, pattern: string): boolean => {
+  let textIndex = 0
+  let patternIndex = 0
+
+  while (textIndex < text.length && patternIndex < pattern.length) {
+    if (text[textIndex] === pattern[patternIndex]) patternIndex++
+    textIndex++
+  }
+
+  return patternIndex === pattern.length
+}
+
+export function useFilteredItems<T extends object>(
   items: T[] | undefined,
   search: string | undefined,
   keys?: (keyof T)[]
@@ -14,7 +26,7 @@ export function useFilteredItems<T extends ArrayLike<object>>(
     for (const value of values) {
       if (
         value != null &&
-        String(value).toLowerCase().includes(normalizedSearch)
+        fuzzyMatch(String(value).toLowerCase(), normalizedSearch)
       ) {
         return true
       }

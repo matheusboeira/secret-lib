@@ -5,7 +5,7 @@ import { useFilteredItems } from './hooks/use-filtered-items'
 import { useReducerState } from './hooks/use-reducer-state'
 import { useTagRefs } from './hooks/use-refs'
 
-export const TagProvider = <T extends ArrayLike<object>>({
+export const TagProvider = <T extends object>({
   items,
   selectedItems,
   children

@@ -11,7 +11,7 @@ type TagsProps<T> = {
   children: (item: T) => React.ReactNode
 }
 
-export const Tags = <T extends ArrayLike<object>>({
+export const Tags = <T extends object>({
   items,
   selectedItems,
   children
