@@ -1,5 +1,6 @@
 import { Button } from '@/components/button'
 import { Input } from '@/components/input'
+import { PageLayout } from '@/components/page-layout'
 import { Text } from '@/components/text'
 import { useMultistep } from '@/lib/hooks'
 
@@ -21,8 +22,7 @@ export const PreviewMultistepSimple = () => {
   ] = useMultistep(5)
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-xl">Preview Multistep Simple</h1>
+    <PageLayout title="Preview Multistep Simple">
       <div className="flex flex-wrap gap-2 items-center">
         <Button onClick={goToNextStep}>Go to next step</Button>
         <Button onClick={goToPreviousStep}>Go to previous step</Button>
@@ -56,6 +56,6 @@ export const PreviewMultistepSimple = () => {
           {canGoToPreviousStep.toString()}
         </Text>
       </div>
-    </div>
+    </PageLayout>
   )
 }
