@@ -1,10 +1,19 @@
 import { useDebounce } from '@/lib/hooks'
 import { useShakeAnimation } from '@/lib/hooks/use-shake-animation'
-import { type KeyboardEvent, useState } from 'react'
+import {
+  type KeyboardEvent,
+  forwardRef,
+  useImperativeHandle,
+  useState
+} from 'react'
 import { useTagStore } from './hooks/use-tag-context'
 import { tags } from './tags.variants'
+import type { TagSearchHandlers } from './@types'
 
-export const TagsSearch = () => {
+const TagsSearchComponent = (
+  props: TagSearchHandlers,
+  ref: React.Ref<HTMLInputElement>
+) => {
   const refs = useTagStore((state) => state.refs)
   const onSearch = useTagStore((state) => state.onSearch)
   const onBackspace = useTagStore((state) => state.onBackspace)
@@ -51,6 +60,10 @@ export const TagsSearch = () => {
     }
   }
 
+  useImperativeHandle(ref, () => refs.inputRef.current as HTMLInputElement, [
+    refs.inputRef
+  ])
+
   return (
     <input
       type="text"
@@ -61,8 +74,11 @@ export const TagsSearch = () => {
       placeholder="Search for..."
       onKeyDown={onKeyDown}
       ref={refs.inputRef}
+      {...props}
     />
   )
 }
 
-TagsSearch.displayName = 'SecretLib.TagsSearch'
+export const TagsSearch = forwardRef(TagsSearchComponent)
+
+TagsSearchComponent.displayName = 'SecretLib.TagsSearch'
