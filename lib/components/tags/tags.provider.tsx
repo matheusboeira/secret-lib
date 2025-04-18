@@ -28,7 +28,10 @@ export function TagProvider<T>({
 
   useClickOutside({
     ref: refs.inputWrapperRef,
-    handler: disclosure.onOpenChange,
+    handler: () => {
+      disclosure.onOpenChange()
+      refs.inputRef.current?.focus()
+    },
     isEnabled: disclosure.isOpen
   })
 

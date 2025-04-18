@@ -25,8 +25,8 @@ export const TagsWrapper = ({ children }: TagsWrapperProps) => {
 
   return (
     <div
-      data-slot="input-wrapper"
-      className={tags.inputWrapper([
+      data-slot="base-wrapper"
+      className={tags.baseWrapper([
         document.activeElement === refs.inputRef.current && 'hover:bg-red-900'
       ])}
       onClick={onHandleClick}

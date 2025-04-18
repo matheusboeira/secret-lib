@@ -1,5 +1,5 @@
 import { usePress } from '@/lib/hooks'
-import { CloseIcon } from '@/lib/icons'
+import { CloseIcon } from '@/lib/core/icons'
 import { chip } from './chip.variants'
 
 export type ChipProps = {
@@ -9,7 +9,7 @@ export type ChipProps = {
 }
 
 export const Chip = ({ children, isClosable, onClose }: ChipProps) => {
-  const closable = isClosable === undefined ? Boolean(onClose) : false
+  const closable = isClosable === undefined ? Boolean(onClose) : isClosable
   const pressProps = usePress({ onPress: onClose })
 
   return (

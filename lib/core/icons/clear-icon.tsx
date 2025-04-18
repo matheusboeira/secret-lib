@@ -1,6 +1,6 @@
-import { memo } from 'react'
+import { iconVariants } from './icon.variants'
 
-export const CloseIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
+export const ClearIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -12,13 +12,13 @@ export const CloseIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      tabIndex={-1}
       {...props}
+      className={iconVariants.base([props.className])}
     >
-      <title>Close</title>
+      <title>Clear</title>
       <path d="M18 6 6 18" />
       <path d="m6 6 12 12" />
     </svg>
   )
-})
-
-CloseIcon.displayName = 'SecretLib.CloseIcon'
+}

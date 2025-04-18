@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import { iconVariants } from './icon.variants'
 
 export const CheckedIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
   return (
@@ -12,7 +13,9 @@ export const CheckedIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      tabIndex={-1}
       {...props}
+      className={iconVariants.base([props.className])}
     >
       <title>Checked</title>
       <path d="M20 6 9 17l-5-5" />

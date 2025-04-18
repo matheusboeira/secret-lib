@@ -6,20 +6,22 @@ import {
   useImperativeHandle,
   useState
 } from 'react'
+import type { TagSearchHandlers } from './@types'
 import { useTagStore } from './hooks/use-tag-context'
 import { tags } from './tags.variants'
-import type { TagSearchHandlers } from './@types'
 
 const TagsSearchComponent = (
   props: TagSearchHandlers,
   ref: React.Ref<HTMLInputElement>
 ) => {
   const refs = useTagStore((state) => state.refs)
+  const disclosure = useTagStore((state) => state.disclosure)
+  const allowCustomValues = useTagStore((state) => state.allowCustomValues)
   const onSearch = useTagStore((state) => state.onSearch)
   const onBackspace = useTagStore((state) => state.onBackspace)
   const onAddItem = useTagStore((state) => state.onAddItem)
   const onSelectItem = useTagStore((state) => state.onSelectItem)
-  const allowCustomValues = useTagStore((state) => state.allowCustomValues)
+  const onFindItem = useTagStore((state) => state.onFindItem)
   const shake = useShakeAnimation({ ref: refs.inputRef })
   const [search, setSearch] = useState('')
 
@@ -29,6 +31,7 @@ const TagsSearchComponent = (
   })
 
   const onHandleSearch = (value: string) => {
+    if (value.length > 0 && !disclosure.isOpen) disclosure.onOpen()
     setSearch(value)
     onDebounceChange(value)
   }
@@ -47,7 +50,7 @@ const TagsSearchComponent = (
 
       if (!allowCustomValues) {
         onSelectItem(value)
-        shake()
+        if (!onFindItem(value)) shake()
         return
       }
 

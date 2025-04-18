@@ -1,21 +1,24 @@
 import { isEqual } from '@/lib/core/utils/is-equal'
 import { usePress } from '@/lib/hooks'
-import { CheckedIcon } from '@/lib/icons'
+import { CheckedIcon } from '@/lib/core/icons'
 import { useMemo } from 'react'
 import { useTagStore } from './hooks/use-tag-context'
 import { tags } from './tags.variants'
 
-type ForceKey = { key: string }
-
-type TagItemProps<T> = ForceKey & {
+type TagButtonProps<T> = {
   value: T
   children: React.ReactNode
 }
 
-export const TagItem = <T,>({ value, children }: TagItemProps<T>) => {
+export const TagButton = <T,>({ value, children }: TagButtonProps<T>) => {
   const selectedItems = useTagStore((state) => state.selectedItems)
   const onSelectItem = useTagStore((state) => state.onSelectItem)
-  const pressProps = usePress({ onPress: () => onSelectItem(value) })
+  const disclosure = useTagStore((state) => state.disclosure)
+
+  const pressProps = usePress({
+    onPress: () => onSelectItem(value),
+    tabIndex: disclosure.isOpen ? 0 : -1
+  })
 
   const isSelected = useMemo(
     () => selectedItems?.some((item) => isEqual(item, value)),
@@ -27,22 +30,18 @@ export const TagItem = <T,>({ value, children }: TagItemProps<T>) => {
       <button
         type="button"
         className={tags.tagItem([
-          'outline-none outline-offset-4 focus:outline-primary'
+          'outline-none outline-offset-4 focus-visible:outline-blue-500'
         ])}
         aria-checked={isSelected ? 'true' : 'false'}
         {...pressProps}
       >
         {children}
       </button>
-      <div className="absolute top-1/2 -translate-y-1/2 right-2 flex items-center gap-1">
-        <CheckedIcon
-          className={tags.checkedIcon([
-            isSelected && 'opacity-100 scale-100 delay-75'
-          ])}
-        />
-      </div>
+      <CheckedIcon
+        className={tags.checkedIcon([isSelected && 'opacity-100 !scale-100'])}
+      />
     </div>
   )
 }
 
-TagItem.displayName = 'SecretLib.TagItem'
+TagButton.displayName = 'SecretLib.TagItem'

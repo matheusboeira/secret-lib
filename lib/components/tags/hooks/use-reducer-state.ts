@@ -113,6 +113,10 @@ export const useReducerState = <T>(defaultValues?: ReducerState<T>) => {
     dispatch({ type: 'ON_ADD_ITEM', payload: item })
   }
 
+  const onFindItem = (item: T) => {
+    return state.items?.find((i) => isEqual(i, item))
+  }
+
   return {
     search: state.search,
     items: state.items,
@@ -122,6 +126,7 @@ export const useReducerState = <T>(defaultValues?: ReducerState<T>) => {
     onClear,
     onSearch,
     onSelectItem,
-    onAddItem
+    onAddItem,
+    onFindItem
   }
 }

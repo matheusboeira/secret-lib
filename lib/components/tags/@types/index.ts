@@ -14,21 +14,22 @@ type TagContextInnerHandlers<T> = {
   onSearch: (value: string) => void
   onSelectItem: (item: T) => void
   onAddItem: (item: T) => void
+  onFindItem: (item: T) => T | undefined
 }
 
-type TagContextHandlers<T> = {
+type TagContextOuterHandlers<T> = {
   onSelectionChange?: (items: T[]) => void
 }
 
 export type TagContextProps<T> = TagContextInnerHandlers<T> &
-  TagContextHandlers<T> & {
+  TagContextOuterHandlers<T> & {
     items: T[]
     selectedItems?: T[]
     filteredItems?: T[]
     refs: TagRefs
     disclosure: UseDisclosureReturn
     search: string
-    allowCustomValues?: boolean | ((item: T) => T)
+    allowCustomValues?: boolean | ((item: string) => T)
   }
 
 export type TagProviderProps<T> = Pick<
@@ -43,8 +44,11 @@ export type TagSearchHandlers = {
   onFocus?: () => void
 }
 
-export type TagsProps<T> = TagContextHandlers<T> &
-  Pick<TagContextProps<T>, 'items' | 'selectedItems' | 'allowCustomValues'> & {
+export type TagsProps<T> = Pick<
+  TagContextProps<T>,
+  'items' | 'selectedItems' | 'allowCustomValues' | 'onSelectionChange'
+> &
+  TagSearchHandlers & {
     renderValue?: (item: T, handlers?: any) => React.ReactNode
     children: (item: T) => React.ReactNode
   }

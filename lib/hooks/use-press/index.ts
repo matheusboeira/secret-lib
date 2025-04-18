@@ -5,9 +5,10 @@ export type PressEvent = React.SyntheticEvent
 
 type UsePressProps = {
   onPress?: (event?: PressEvent) => void
+  tabIndex?: number
 }
 
-export const usePress = ({ onPress }: UsePressProps) => {
+export const usePress = ({ onPress, tabIndex }: UsePressProps) => {
   const { onPress: onPressRef } = useCallbackRefs({ onPress })
 
   const handleKeyDown = useCallback(
@@ -40,7 +41,7 @@ export const usePress = ({ onPress }: UsePressProps) => {
     onClick: handleClick,
     onTouchEnd: handleTouchEnd,
     onKeyDown: handleKeyDown,
-    tabIndex: 0,
+    tabIndex: tabIndex ?? 0,
     role: 'button'
   }
 }

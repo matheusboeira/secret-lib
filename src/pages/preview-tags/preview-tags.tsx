@@ -1,12 +1,20 @@
 import { PageLayout } from '@/components/page-layout'
 import { Tags } from '@/lib/components'
-import { TagItem } from '@/lib/components/tags/tags-item'
 import { useRef, useState } from 'react'
 
-const randomItems = Array.from({ length: 2 }, (_, i) => `Item ${i + 1}`)
+const randomItems = Array.from({ length: 15 }, (_, i) => `Item ${i + 1}`)
+
+const randomComplexItems = Array.from({ length: 2 }, (_, i) => ({
+  id: `${i + 1}`,
+  label: `Item ${i + 1}`,
+  color: 'primary'
+}))
 
 export const PreviewTags = () => {
-  const [selected, setSelected] = useState<string[]>([])
+  const [selected, setSelected] = useState<string[]>(randomItems)
+  const [selectedComplex, setSelectedComplex] = useState<
+    (typeof randomComplexItems)[number][]
+  >([])
   const ref = useRef<HTMLInputElement>(null)
 
   return (
@@ -21,13 +29,18 @@ export const PreviewTags = () => {
         allowCustomValues
         ref={ref}
       >
-        {(item) => (
-          <TagItem key={item} value={item}>
-            {item}
-          </TagItem>
-        )}
+        {(item) => <div>{item}</div>}
       </Tags>
-      <pre className="mt-52">{JSON.stringify(selected, null, 2)}</pre>
+      <Tags
+        items={randomComplexItems}
+        selectedItems={selectedComplex}
+        onSelectionChange={setSelectedComplex}
+      >
+        {(item) => <div>{item.label}</div>}
+      </Tags>
+      <pre className="mt-64">
+        {JSON.stringify({ selected, selectedComplex }, null, 2)}
+      </pre>
     </PageLayout>
   )
 }
