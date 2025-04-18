@@ -11,7 +11,7 @@ const randomComplexItems = Array.from({ length: 2 }, (_, i) => ({
 }))
 
 export const PreviewTags = () => {
-  const [selected, setSelected] = useState<string[]>(randomItems)
+  const [selected] = useState<string[]>(randomItems)
   const [selectedComplex, setSelectedComplex] = useState<
     (typeof randomComplexItems)[number][]
   >([])
@@ -25,7 +25,6 @@ export const PreviewTags = () => {
       <Tags
         items={randomItems}
         selectedItems={selected}
-        onSelectionChange={setSelected}
         allowCustomValues
         ref={ref}
       >
