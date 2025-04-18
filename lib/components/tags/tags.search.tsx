@@ -11,7 +11,7 @@ export const TagsSearch = () => {
   const onAddItem = useTagStore((state) => state.onAddItem)
   const onSelectItem = useTagStore((state) => state.onSelectItem)
   const allowCustomValues = useTagStore((state) => state.allowCustomValues)
-  const { shake } = useShakeAnimation({ ref: refs.inputRef })
+  const shake = useShakeAnimation({ ref: refs.inputRef })
   const [search, setSearch] = useState('')
 
   const { onDebounceChange } = useDebounce({

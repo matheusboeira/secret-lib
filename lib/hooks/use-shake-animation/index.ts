@@ -32,5 +32,5 @@ export const useShakeAnimation = <T extends HTMLElement>({
     }, undoIn)
   }
 
-  return { shake }
+  return shake
 }

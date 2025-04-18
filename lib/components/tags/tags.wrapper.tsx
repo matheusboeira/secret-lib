@@ -34,6 +34,7 @@ export const TagsWrapper = ({ children }: TagsWrapperProps) => {
       }
       onClick={onHandleClick}
       onKeyDown={() => {}}
+      ref={refs.inputWrapperRef}
     >
       {children}
     </div>

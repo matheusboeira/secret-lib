@@ -1,5 +1,6 @@
 import { createStore } from '@/lib/core/stores/create-store'
 import { useDisclosure } from '@/lib/hooks'
+import { useClickOutside } from '@/lib/hooks/use-click-outside'
 import { useEffect, useState } from 'react'
 import type { TagContextProps, TagProviderProps } from './@types'
 import { TagContext } from './context/tags.context'
@@ -18,6 +19,12 @@ export function TagProvider<T>({
   const refs = useTagRefs()
   const search = state.search?.toLowerCase().trim()
   const filteredItems = useFilteredItems(state.items, search)
+
+  useClickOutside({
+    ref: refs.inputWrapperRef,
+    handler: disclosure.onOpenChange,
+    isEnabled: disclosure.isOpen
+  })
 
   const [store] = useState(() =>
     createStore<TagContextProps<T>>({
