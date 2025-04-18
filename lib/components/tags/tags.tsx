@@ -8,19 +8,27 @@ import { TagsWrapper } from './tags.wrapper'
 type TagsProps<T> = {
   items: T[]
   selectedItems?: T[]
+  renderValue?: (item: T, handlers?: any) => React.ReactNode
   children: (item: T) => React.ReactNode
+  allowCustomValues?: boolean | ((item: T) => T)
 }
 
-export const Tags = <T extends object>({
+export const Tags = <T,>({
   items,
   selectedItems,
-  children
+  children,
+  renderValue,
+  allowCustomValues
 }: TagsProps<T>) => {
   return (
-    <TagProvider items={items} selectedItems={selectedItems}>
+    <TagProvider
+      items={items}
+      selectedItems={selectedItems}
+      allowCustomValues={allowCustomValues}
+    >
       <TagsWrapper>
         <div className="relative flex flex-row flex-wrap items-center gap-1">
-          <SelectedItems />
+          <SelectedItems renderValue={renderValue}>{children}</SelectedItems>
           <TagsSearch />
         </div>
         <TagListItems>{children}</TagListItems>
@@ -28,3 +36,5 @@ export const Tags = <T extends object>({
     </TagProvider>
   )
 }
+
+Tags.displayName = 'SecretLib.Tags'

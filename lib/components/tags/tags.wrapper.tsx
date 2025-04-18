@@ -1,27 +1,27 @@
-import { useTagContext } from './hooks/use-tag-context'
+import { useTagStore } from './hooks/use-tag-context'
 import { tags } from './tags.variants'
 
 type TagsWrapperProps = {
   children: React.ReactNode
 }
 
-export const TagsWrapper = <T,>({ children }: TagsWrapperProps) => {
-  const { refs, disclosure } = useTagContext<T>()
-  const { isOpen, onOpen } = disclosure
+export const TagsWrapper = ({ children }: TagsWrapperProps) => {
+  const refs = useTagStore((state) => state.refs)
+  const disclosure = useTagStore((state) => state.disclosure)
 
   const onHandleClick = () => {
     refs.inputRef.current?.focus()
 
     if (
-      isOpen ||
+      disclosure.isOpen ||
       refs.openButtonRef.current === document.activeElement ||
-      refs.selectedItemsRef.current === document.activeElement
+      refs.selectedItemsWrapperRef.current === document.activeElement
     ) {
       console.log('parado!')
       return
     }
 
-    onOpen()
+    disclosure.onOpen()
     console.log('alalalal')
   }
 
@@ -39,3 +39,5 @@ export const TagsWrapper = <T,>({ children }: TagsWrapperProps) => {
     </div>
   )
 }
+
+TagsWrapper.displayName = 'SecretLib.TagsWrapper'

@@ -1,23 +1,20 @@
 import { PageLayout } from '@/components/page-layout'
 import { Tags } from '@/lib/components'
 import { TagItem } from '@/lib/components/tags/tags-item'
-import { useState } from 'react'
+
+const randomItems = Array.from({ length: 2 }, (_, i) => `Item ${i + 1}`)
 
 export const PreviewTags = () => {
-  const [state, setState] = useState<string[]>([])
-
   return (
     <PageLayout title="Preview Tags">
       <Tags
-        items={[
-          { _id: '1', name: 'Test 1' },
-          { _id: '2', name: 'Test 2' }
-        ]}
-        selectedItems={[{ _id: '2', name: 'Test 2' }]}
+        items={randomItems}
+        selectedItems={[randomItems[0]]}
+        allowCustomValues={false}
       >
         {(item) => (
-          <TagItem key={item._id} value={item}>
-            <div>{item.name}</div>
+          <TagItem key={item} value={item}>
+            {item}
           </TagItem>
         )}
       </Tags>

@@ -1,6 +1,6 @@
 import type { UseDisclosureReturn } from '@/lib/hooks'
-import { createStore } from '@/lib/utils/create-store'
 import type { TagRefs } from '../hooks/use-refs'
+import { createStore } from '@/lib/core/stores/create-store'
 
 export type TagState<T> = {
   items: T[]

@@ -7,6 +7,7 @@ type TagContextHandlers<T> = {
   onTrashItem: (item: T) => T
   onSearch: (value: string) => void
   onSelectItem: (item: T) => void
+  onAddItem: (item: T) => void
 }
 
 export type TagContextProps<T> = TagContextHandlers<T> & {
@@ -15,11 +16,13 @@ export type TagContextProps<T> = TagContextHandlers<T> & {
   filteredItems?: T[]
   refs: TagRefs
   disclosure: UseDisclosureReturn
+  search: string
+  allowCustomValues?: boolean | ((item: T) => T)
 }
 
 export type TagProviderProps<T> = Pick<
   TagContextProps<T>,
-  'items' | 'selectedItems'
+  'items' | 'selectedItems' | 'allowCustomValues'
 > & {
   children: React.ReactNode
 }

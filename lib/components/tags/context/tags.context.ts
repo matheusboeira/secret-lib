@@ -1,4 +1,4 @@
+import type { CreateStoreReturn } from '@/lib/core/stores/create-store'
 import { createContext } from 'react'
-import type { TagContextProps } from '../@types'
 
-export const TagsContext = createContext<TagContextProps<any> | null>(null)
+export const TagContext = createContext<CreateStoreReturn<unknown> | null>(null)

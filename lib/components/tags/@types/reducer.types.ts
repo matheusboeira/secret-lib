@@ -1,9 +1,6 @@
-export type HandlerType<S, A extends { type: string }> = {
-  [K in A['type']]?: (state: S, action: Extract<A, { type: K }>) => S
-}
-
 export type ReducerState<T> = {
-  search?: string
+  search: string
+  items: T[]
   selectedItems?: T[]
 }
 
@@ -12,3 +9,4 @@ export type ReducerActions<T> =
   | { type: 'ON_CLEAR' }
   | { type: 'ON_SEARCH'; payload: string }
   | { type: 'ON_SELECT_ITEM'; payload: T }
+  | { type: 'ON_ADD_ITEM'; payload: T }

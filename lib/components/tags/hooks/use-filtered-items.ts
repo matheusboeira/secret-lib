@@ -10,7 +10,7 @@ const fuzzyMatch = (text: string, pattern: string): boolean => {
   return patternIndex === pattern.length
 }
 
-export function useFilteredItems<T extends object>(
+export function useFilteredItems<T>(
   items: T[] | undefined,
   search: string | undefined,
   keys?: (keyof T)[]
@@ -21,6 +21,10 @@ export function useFilteredItems<T extends object>(
   if (!normalizedSearch) return items
 
   return items.filter((item) => {
+    if (typeof item !== 'object' || item === null) {
+      return fuzzyMatch(String(item).toLowerCase(), normalizedSearch)
+    }
+
     const values = keys ? keys.map((key) => item[key]) : Object.values(item)
 
     for (const value of values) {

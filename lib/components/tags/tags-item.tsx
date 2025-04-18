@@ -1,24 +1,24 @@
-import { isEqual } from '@/lib/utils/is-equal'
+import { isEqual } from '@/lib/core/utils/is-equal'
+import { usePress } from '@/lib/hooks'
+import { CheckedIcon } from '@/lib/icons'
 import { useMemo } from 'react'
-import { useTagContext } from './hooks/use-tag-context'
+import { useTagStore } from './hooks/use-tag-context'
 import { tags } from './tags.variants'
-import { CheckedIcon, CloseIcon } from '@/lib/icons'
 
 type ForceKey = { key: string }
 
-type TagItemProps<T extends object> = ForceKey & {
+type TagItemProps<T> = ForceKey & {
   value: T
   children: React.ReactNode
 }
 
-export const TagItem = <T extends object>({
-  value,
-  children
-}: TagItemProps<T>) => {
-  const { selectedItems, onSelectItem } = useTagContext<T>()
+export const TagItem = <T,>({ value, children }: TagItemProps<T>) => {
+  const selectedItems = useTagStore((state) => state.selectedItems)
+  const onSelectItem = useTagStore((state) => state.onSelectItem)
+  const pressProps = usePress({ onPress: () => onSelectItem(value) })
 
   const isSelected = useMemo(
-    () => selectedItems?.find((item) => isEqual(item, value)),
+    () => selectedItems?.some((item) => isEqual(item, value)),
     [selectedItems, value]
   )
 
@@ -27,25 +27,22 @@ export const TagItem = <T extends object>({
       <button
         type="button"
         className={tags.tagItem([
-          // 'outline-none outline-offset-4 focus:outline-primary'
+          'outline-none outline-offset-4 focus:outline-primary'
         ])}
-        onClick={() => onSelectItem(value)}
         aria-checked={isSelected ? 'true' : 'false'}
+        {...pressProps}
       >
-        {children} - {isSelected ? 'true' : 'false'}
+        {children}
       </button>
       <div className="absolute top-1/2 -translate-y-1/2 right-2 flex items-center gap-1">
-        <CloseIcon
-          className={tags.checkedIcon([
-            isSelected ? 'opacity-100 scale-100 delay-75' : 'opacity-0 scale-50'
-          ])}
-        />
         <CheckedIcon
           className={tags.checkedIcon([
-            isSelected ? 'opacity-100 scale-100 delay-75' : 'opacity-0 scale-50'
+            isSelected && 'opacity-100 scale-100 delay-75'
           ])}
         />
       </div>
     </div>
   )
 }
+
+TagItem.displayName = 'SecretLib.TagItem'

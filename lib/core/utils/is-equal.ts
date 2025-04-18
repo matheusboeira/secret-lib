@@ -1,14 +1,14 @@
-/**
- * Check if two values are equal by comparing their types and values.
- *
- * @param value - The first value to compare.
- * @param other - The second value to compare.
- * @returns true if the values are equal, false otherwise.
- */
 export const isEqual = (value: any, other: any): boolean => {
   if (value === other) return true
   if (value == null || other == null) return false
   if (typeof value !== typeof other) return false
+  if (
+    typeof value === 'string' &&
+    typeof other === 'string' &&
+    value.toLowerCase() === other.toLowerCase()
+  ) {
+    return true
+  }
   if (typeof value !== 'object' && typeof other !== 'object') return false
 
   /** Special case for possible id's */

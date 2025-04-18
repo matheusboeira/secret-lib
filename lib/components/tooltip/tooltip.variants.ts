@@ -1,4 +1,4 @@
-import { createVariants } from '@/lib/utils/create-variants'
+import { createVariants } from '@/lib/core/utils/create-variants'
 
 export const tooltip = createVariants({
   base: [
