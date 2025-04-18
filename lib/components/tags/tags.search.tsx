@@ -38,6 +38,7 @@ export const TagsSearch = () => {
 
       if (!allowCustomValues) {
         onSelectItem(value)
+        shake()
         return
       }
 

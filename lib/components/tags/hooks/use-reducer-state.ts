@@ -1,6 +1,6 @@
 import { createReducer } from '@/lib/core/utils/create-reducer'
 import { isEqual } from '@/lib/core/utils/is-equal'
-import { useReducer } from 'react'
+import { useEffect, useReducer } from 'react'
 import type { ReducerActions, ReducerState } from '../@types/reducer.types'
 
 const findEqualItem = <T>(list: T[], item: T): T | undefined => {
@@ -75,12 +75,11 @@ const createReducerState = <T>() =>
     }
   })
 
-const initialState = <T>(
-  defaultValues?: ReducerState<T>
-): Required<ReducerState<T>> => ({
+const initialState = <T>(defaultValues?: ReducerState<T>): ReducerState<T> => ({
   search: '',
   items: [],
   selectedItems: [],
+  onSelectionChange: () => {},
   ...defaultValues
 })
 
@@ -89,6 +88,10 @@ export const useReducerState = <T>(defaultValues?: ReducerState<T>) => {
     createReducerState<T>(),
     initialState<T>(defaultValues)
   )
+
+  useEffect(() => {
+    state.onSelectionChange?.(state.selectedItems ?? [])
+  }, [state.selectedItems, state.onSelectionChange])
 
   const onSearch = (value: string) => {
     dispatch({ type: 'ON_SEARCH', payload: value })

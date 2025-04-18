@@ -17,21 +17,18 @@ export const TagsWrapper = ({ children }: TagsWrapperProps) => {
       refs.openButtonRef.current === document.activeElement ||
       refs.selectedItemsWrapperRef.current === document.activeElement
     ) {
-      console.log('parado!')
       return
     }
 
     disclosure.onOpen()
-    console.log('alalalal')
   }
 
   return (
     <div
       data-slot="input-wrapper"
-      className={
-        tags.inputWrapper()
-        // document.activeElement === refs.inputRef.current && 'hover:bg-red-900'
-      }
+      className={tags.inputWrapper([
+        document.activeElement === refs.inputRef.current && 'hover:bg-red-900'
+      ])}
       onClick={onHandleClick}
       onKeyDown={() => {}}
       ref={refs.inputWrapperRef}

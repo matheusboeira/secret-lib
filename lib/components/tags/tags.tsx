@@ -8,6 +8,7 @@ import { TagsWrapper } from './tags.wrapper'
 type TagsProps<T> = {
   items: T[]
   selectedItems?: T[]
+  onSelectionChange?: (items: T[]) => void
   renderValue?: (item: T, handlers?: any) => React.ReactNode
   children: (item: T) => React.ReactNode
   allowCustomValues?: boolean | ((item: T) => T)
@@ -18,13 +19,15 @@ export const Tags = <T,>({
   selectedItems,
   children,
   renderValue,
-  allowCustomValues
+  allowCustomValues,
+  onSelectionChange
 }: TagsProps<T>) => {
   return (
     <TagProvider
       items={items}
       selectedItems={selectedItems}
       allowCustomValues={allowCustomValues}
+      onSelectionChange={onSelectionChange}
     >
       <TagsWrapper>
         <div className="relative flex flex-row flex-wrap items-center gap-1">
