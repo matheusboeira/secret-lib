@@ -1,11 +1,6 @@
-import { useDebounce } from '@/lib/hooks'
+import { useStateDebounce } from '@/lib/hooks/use-state-debounce'
 import { useShakeAnimation } from '@/lib/hooks/use-shake-animation'
-import {
-  type KeyboardEvent,
-  forwardRef,
-  useImperativeHandle,
-  useState
-} from 'react'
+import { type KeyboardEvent, forwardRef, useImperativeHandle } from 'react'
 import type { TagSearchHandlers } from './@types'
 import { useTagStore } from './hooks/use-tag-context'
 import { tags } from './tags.variants'
@@ -23,10 +18,10 @@ const TagsSearchComponent = (
   const onSelectItem = useTagStore((state) => state.onSelectItem)
   const onFindItem = useTagStore((state) => state.onFindItem)
   const shake = useShakeAnimation({ ref: refs.inputRef })
-  const [search, setSearch] = useState('')
 
-  const { onDebounceChange } = useDebounce({
+  const [search, setSearch, { onDebounceChange }] = useStateDebounce({
     callback: onSearch,
+    defaultValue: '',
     delay: 300
   })
 

@@ -30,7 +30,13 @@ export const SelectedItems = <T,>({
         const key = _item.id ?? _item._id ?? JSON.stringify(item)
 
         if (renderValue) {
-          return <li key={key}>{renderValue(item as T, { onSelectItem })}</li>
+          return (
+            <li key={key}>
+              {renderValue(item as T, {
+                onClearItem: () => onSelectItem(item as T)
+              })}
+            </li>
+          )
         }
 
         return (

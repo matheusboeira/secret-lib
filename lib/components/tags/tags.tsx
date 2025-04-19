@@ -1,7 +1,8 @@
-import { CloseIcon, SelectorIcon } from '@/lib/core/icons'
 import type React from 'react'
 import { forwardRef } from 'react'
 import type { TagsProps } from './@types'
+import { CloseButton } from './buttons/clear-button'
+import { OpenListItemsButton } from './buttons/open-list-items-button'
 import { TagListItems } from './tags.list-items'
 import { TagProvider } from './tags.provider'
 import { TagsSearch } from './tags.search'
@@ -23,16 +24,9 @@ const TagsComponent = <T,>(
             {children}
           </SelectedItems>
         </div>
-        <div className="flex items-center self-start gap-1.5 p-2">
-          <CloseIcon />
-          <button
-            type="button"
-            // ref={refs.openButtonRef}
-            // className={tags.openListButton()}
-            // {...pressProps}
-          >
-            <SelectorIcon className="size-4" />
-          </button>
+        <div className="flex items-center self-start gap-0.5">
+          <CloseButton />
+          <OpenListItemsButton />
         </div>
         <TagListItems>{children}</TagListItems>
       </TagsWrapper>

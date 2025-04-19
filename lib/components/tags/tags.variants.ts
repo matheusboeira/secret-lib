@@ -2,11 +2,11 @@ import { createVariants } from '@/lib/core/utils/create-variants'
 
 export const tags = createVariants({
   baseWrapper: [
-    'group/tag-wrapper relative p-1.5 rounded-xl',
+    'group/base-wrapper relative rounded-xl p-1.5',
     'grid grid-cols-[1fr_auto] items-center justify-between gap-1',
     'cursor-text',
     'bg-zinc-500 hover:bg-gray-200',
-    'dark:bg-zinc-900 dark:hover:bg-zinc-800/80',
+    'dark:bg-zinc-900 dark:hover:bg-zinc-800/70',
     'min-h-10 cursor-pointer'
   ],
   input: [
@@ -16,9 +16,10 @@ export const tags = createVariants({
   selectedItemsWrapper: ['flex items-center gap-1 flex-wrap'],
   tagItem: [
     'flex w-full items-center gap-2 px-3 py-0.5 rounded-lg min-h-9 h-fit',
-    'bg-transparent text-black dark:text-white',
-    'hover:bg-zinc-200 dark:hover:bg-zinc-800/80 transition-colors duration-200',
-    'outline-none outline-offset-1 focus-visible:bg-zinc-800/80'
+    'bg-transparent text-black dark:text-white !z-50',
+    'hover:bg-zinc-200 dark:hover:bg-zinc-800/70 transition-colors duration-200',
+    'outline-none outline-offset-2',
+    'focus-visible:outline-blue-500 focus-visible:bg-zinc-800/70'
   ],
   listItemsWrapper: [
     'flex flex-col gap-1 items-start p-2 py-2 w-full z-40 max-h-72 lg:max-h-96',
@@ -34,10 +35,9 @@ export const tags = createVariants({
     'size-4 transition-all duration-200 ease-in-out pointer-events-none',
     'opacity-0 scale-75'
   ],
-  openListButton: [
-    'absolute top-0 right-0 p-2 rounded-full',
+  actionButton: [
+    'p-1.5 rounded-full z-20',
     'outline-none outline-offset-1 focus-visible:outline-blue-500',
-    'group/tag-wrapper:dark:hover:bg-zinc-800/80',
-    'bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800'
+    'dark:hover:bg-zinc-800/70'
   ]
 })

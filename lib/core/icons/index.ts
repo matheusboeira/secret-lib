@@ -1,5 +1,5 @@
 export * from './checked-icon'
-export * from './close-icon'
+export * from './x-icon'
 export * from './selector-icon'
 export * from './clear-icon'
 export * from './loader-icon'

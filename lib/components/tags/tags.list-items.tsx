@@ -1,5 +1,5 @@
 import { useTagStore } from './hooks/use-tag-context'
-import { TagButton } from './tags-item'
+import { TagButton } from './tags-button'
 import { tags } from './tags.variants'
 
 type TagListItemsProps<T> = {
@@ -25,8 +25,8 @@ export const TagListItems = <T,>({ children }: TagListItemsProps<T>) => {
       {filteredItems?.length === 0 && (
         <span className="p-2 text-sm">No items found.</span>
       )}
-      {filteredItems?.map((item) => (
-        <TagButton key={JSON.stringify(item)} value={item}>
+      {filteredItems?.map((item, index) => (
+        <TagButton key={index} value={item}>
           {children(item as T)}
         </TagButton>
       ))}

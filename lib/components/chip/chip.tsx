@@ -1,5 +1,5 @@
 import { usePress } from '@/lib/hooks'
-import { CloseIcon } from '@/lib/core/icons'
+import { XIcon } from '@/lib/core/icons'
 import { chip } from './chip.variants'
 
 export type ChipProps = {
@@ -17,7 +17,7 @@ export const Chip = ({ children, isClosable, onClose }: ChipProps) => {
       {children}
       {closable && (
         <button type="button" className={chip.icon()} {...pressProps}>
-          <CloseIcon className="size-3" />
+          <XIcon className="size-3" />
         </button>
       )}
     </div>
