@@ -1,14 +1,9 @@
 import { Chip } from '../chip'
+import type { SelectedItemsProps } from './@types'
 import { useTagStore } from './hooks/use-tag-context'
 import { tags } from './tags.variants'
 
 type ItemKey<T> = { id?: string; _id?: string } & T
-
-type SelectedItemsProps<T> = {
-  search: React.ReactNode
-  children: (item: T) => React.ReactNode
-  renderValue?: (item: T, handlers?: any) => React.ReactNode
-}
 
 export const SelectedItems = <T,>({
   search,
@@ -17,6 +12,7 @@ export const SelectedItems = <T,>({
 }: SelectedItemsProps<T>) => {
   const refs = useTagStore((state) => state.refs)
   const selectedItems = useTagStore((state) => state.selectedItems)
+  const onUpdateItem = useTagStore((state) => state.onUpdateItem)
   const onSelectItem = useTagStore((state) => state.onSelectItem)
 
   return (
@@ -33,7 +29,8 @@ export const SelectedItems = <T,>({
           return (
             <li key={key}>
               {renderValue(item as T, {
-                onClearItem: () => onSelectItem(item as T)
+                onClearItem: () => onSelectItem(item as T),
+                onUpdateItem: () => onUpdateItem(item as T)
               })}
             </li>
           )

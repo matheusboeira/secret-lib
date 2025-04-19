@@ -11,3 +11,5 @@ export type ReducerActions<T> =
   | { type: 'ON_SEARCH'; payload: string }
   | { type: 'ON_SELECT_ITEM'; payload: T }
   | { type: 'ON_ADD_ITEM'; payload: T }
+  | { type: 'ON_UPDATE_ITEM'; payload: T }
+  | { type: 'ON_TRASH_ITEM'; payload: T }

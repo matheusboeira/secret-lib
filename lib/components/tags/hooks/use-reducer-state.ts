@@ -55,7 +55,7 @@ const createReducerState = <T>() =>
         : { ...state, search: action.payload }
     },
     ON_BACKSPACE: (state) => {
-      const selectedItems = state.selectedItems ?? []
+      const { selectedItems = [] } = state
       if (selectedItems.length === 0) return state
 
       return {
@@ -64,7 +64,7 @@ const createReducerState = <T>() =>
       }
     },
     ON_CLEAR: (state) => {
-      const selectedItems = state.selectedItems ?? []
+      const { selectedItems = [] } = state
       const cleared = clearIfNotEmpty(selectedItems)
       if (cleared === selectedItems) return state
 
@@ -72,10 +72,50 @@ const createReducerState = <T>() =>
         ...state,
         selectedItems: cleared
       }
+    },
+    ON_UPDATE_ITEM: (state, action) => {
+      const itemIndex = state.items.findIndex((i) => isEqual(i, action.payload))
+      const selectedItemIndex = state.selectedItems?.findIndex((i) =>
+        isEqual(i, action.payload)
+      )
+
+      if (itemIndex === -1) {
+        return state
+      }
+
+      let updatedSelectedItems = state.selectedItems
+      const updatedItems = [...state.items]
+      updatedItems[itemIndex] = action.payload
+
+      if (selectedItemIndex && selectedItemIndex !== -1) {
+        updatedSelectedItems = [...(state.selectedItems ?? [])]
+        updatedSelectedItems[selectedItemIndex] = action.payload
+      }
+
+      return {
+        ...state,
+        items: updatedItems,
+        selectedItems: updatedSelectedItems
+      }
+    },
+    ON_TRASH_ITEM: (state, action) => {
+      const item = findEqualItem(state.items, action.payload)
+      if (!item) return state
+
+      const updatedItems = state.items.filter((i) => !isEqual(i, item))
+      const updatedSelectedItems = toggleItem(state.selectedItems ?? [], item)
+
+      return {
+        ...state,
+        items: updatedItems,
+        selectedItems: updatedSelectedItems
+      }
     }
   })
 
-const initialState = <T>(defaultValues?: ReducerState<T>): ReducerState<T> => ({
+const initialState = <T>(
+  defaultValues?: Partial<ReducerState<T>>
+): ReducerState<T> => ({
   search: '',
   items: [],
   selectedItems: [],
@@ -83,7 +123,9 @@ const initialState = <T>(defaultValues?: ReducerState<T>): ReducerState<T> => ({
   ...defaultValues
 })
 
-export const useReducerState = <T>(defaultValues?: ReducerState<T>) => {
+export const useReducerState = <T>(
+  defaultValues?: Partial<ReducerState<T>>
+) => {
   const [state, dispatch] = useReducer(
     createReducerState<T>(),
     initialState<T>(defaultValues)
@@ -101,7 +143,7 @@ export const useReducerState = <T>(defaultValues?: ReducerState<T>) => {
     dispatch({ type: 'ON_BACKSPACE' })
   }
 
-  const onClear = () => {
+  const onClearItems = () => {
     dispatch({ type: 'ON_CLEAR' })
   }
 
@@ -117,16 +159,26 @@ export const useReducerState = <T>(defaultValues?: ReducerState<T>) => {
     return state.items?.find((i) => isEqual(i, item))
   }
 
+  const onUpdateItem = (item: T) => {
+    dispatch({ type: 'ON_UPDATE_ITEM', payload: item })
+  }
+
+  const onTrashItem = (item: T) => {
+    dispatch({ type: 'ON_TRASH_ITEM', payload: item })
+  }
+
   return {
     search: state.search,
     items: state.items,
     selectedItems: state.selectedItems,
     dispatch,
     onBackspace,
-    onClear,
+    onClearItems,
     onSearch,
     onSelectItem,
     onAddItem,
-    onFindItem
+    onFindItem,
+    onUpdateItem,
+    onTrashItem
   }
 }

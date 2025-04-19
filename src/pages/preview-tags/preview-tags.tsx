@@ -19,8 +19,8 @@ export const PreviewTags = () => {
 
   return (
     <PageLayout title="Preview Tags">
-      <button type="button" onClick={() => ref.current?.focus()}>
-        Focus
+      <button type="button" onClick={() => setSelected([])}>
+        Reset
       </button>
       <Tags
         items={randomItems}
@@ -29,7 +29,7 @@ export const PreviewTags = () => {
         allowCustomValues
         ref={ref}
       >
-        {(item) => <div>{item} is selected</div>}
+        {(item) => <div>{item}</div>}
       </Tags>
       <Tags
         items={randomComplexItems}

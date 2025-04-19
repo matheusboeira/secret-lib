@@ -17,7 +17,7 @@ export const Chip = ({ children, isClosable, onClose }: ChipProps) => {
       {children}
       {closable && (
         <button type="button" className={chip.icon()} {...pressProps}>
-          <XIcon className="size-3" />
+          <XIcon className="size-3 text-white dark:text-black" />
         </button>
       )}
     </div>

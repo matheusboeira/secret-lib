@@ -1,3 +1,5 @@
+import { cn } from '@/utils/cn'
+
 export type ClassDictionary = Record<string, any>
 export type ClassValue =
   | ClassDictionary
@@ -19,7 +21,7 @@ export const createVariants = <T extends Record<string, string[]>>(
     const baseArray = classes[key] as string[]
 
     const fn: CreateVariantsFunction = (extra: ClassValue[] = []) =>
-      [...baseArray, ...extra].filter(Boolean).join(' ')
+      cn([...baseArray, ...extra].join(' '))
 
     result[key] = fn
   }
