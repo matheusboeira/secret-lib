@@ -6,8 +6,8 @@ import { tags } from '../tags.variants'
 
 export const CloseButton = memo(() => {
   const refs = useTagStore((state) => state.refs)
-  const onClear = useTagStore((state) => state.onClear)
-  const pressProps = usePress({ onPress: onClear })
+  const onClearItems = useTagStore((state) => state.onClearItems)
+  const pressProps = usePress({ onPress: onClearItems })
   const selectedItems = useTagStore((state) => state.selectedItems)
 
   if (selectedItems?.length === 0) {
