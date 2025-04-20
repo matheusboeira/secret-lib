@@ -30,7 +30,7 @@ export const SelectedItems = <T,>({
             <li key={key}>
               {renderValue(item as T, {
                 onClearItem: () => onSelectItem(item as T),
-                onUpdateItem: () => onUpdateItem(item as T)
+                onUpdateItem: (newValue) => onUpdateItem(item as T, newValue)
               })}
             </li>
           )

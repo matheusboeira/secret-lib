@@ -15,7 +15,7 @@ type TagContextInnerHandlers<T> = {
   onSelectItem: (item: T) => void
   onAddItem: (item: T) => void
   onFindItem: (item: T) => T | undefined
-  onUpdateItem: (item: T) => void
+  onUpdateItem: (oldValue: T, newValue: T) => void
 }
 
 type TagContextOuterHandlers<T> = {
@@ -45,15 +45,15 @@ export type TagSearchHandlers = {
   onFocus?: () => void
 }
 
-export type SelectedItemHandlers = {
+export type SelectedItemHandlers<T> = {
   onClearItem: () => void
-  onUpdateItem: () => void
+  onUpdateItem: (newValue: T) => void
 }
 
 export type SelectedItemsProps<T> = {
   search: React.ReactNode
   children: (item: T) => React.ReactNode
-  renderValue?: (item: T, handlers?: SelectedItemHandlers) => React.ReactNode
+  renderValue?: (item: T, handlers: SelectedItemHandlers<T>) => React.ReactNode
 }
 
 export type TagsProps<T> = Omit<SelectedItemsProps<T>, 'search'> &

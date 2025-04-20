@@ -25,6 +25,28 @@ const clearIfNotEmpty = <T>(list: T[]): T[] => {
   return list.length > 0 ? [] : list
 }
 
+const updateItemList = <T>(list: T[], oldValue: T, newValue: T) => {
+  let isFound = false
+  let isDuplicated = false
+
+  const updated = list.map((item) => {
+    if (isEqual(item, oldValue)) {
+      isFound = true
+      return newValue
+    }
+    if (isEqual(item, newValue)) {
+      isDuplicated = true
+    }
+    return item
+  })
+
+  return {
+    updated: isFound || isDuplicated ? updated : list,
+    isFound,
+    isDuplicated
+  }
+}
+
 const createReducerState = <T>() =>
   createReducer<ReducerState<T>, ReducerActions<T>>({
     ON_ADD_ITEM: (state, action) => {
@@ -74,28 +96,27 @@ const createReducerState = <T>() =>
       }
     },
     ON_UPDATE_ITEM: (state, action) => {
-      const itemIndex = state.items.findIndex((i) => isEqual(i, action.payload))
-      const selectedItemIndex = state.selectedItems?.findIndex((i) =>
-        isEqual(i, action.payload)
-      )
+      const { items, selectedItems = [] } = state
+      const { oldValue, newValue } = action.payload
 
-      if (itemIndex === -1) {
+      /** Prevents unnecessary updates/re-renders */
+      if (isEqual(newValue, oldValue)) {
         return state
       }
 
-      let updatedSelectedItems = state.selectedItems
-      const updatedItems = [...state.items]
-      updatedItems[itemIndex] = action.payload
+      const itemsCheck = updateItemList(items, oldValue, newValue)
+      const selectionCheck = updateItemList(selectedItems, oldValue, newValue)
+      const isDuplicated =
+        itemsCheck.isDuplicated || selectionCheck.isDuplicated
 
-      if (selectedItemIndex && selectedItemIndex !== -1) {
-        updatedSelectedItems = [...(state.selectedItems ?? [])]
-        updatedSelectedItems[selectedItemIndex] = action.payload
+      if (!itemsCheck.isFound || isDuplicated) {
+        return state
       }
 
       return {
         ...state,
-        items: updatedItems,
-        selectedItems: updatedSelectedItems
+        items: itemsCheck.updated,
+        selectedItems: selectionCheck.updated
       }
     },
     ON_TRASH_ITEM: (state, action) => {
@@ -159,8 +180,8 @@ export const useReducerState = <T>(
     return state.items?.find((i) => isEqual(i, item))
   }
 
-  const onUpdateItem = (item: T) => {
-    dispatch({ type: 'ON_UPDATE_ITEM', payload: item })
+  const onUpdateItem = (oldValue: T, newValue: T) => {
+    dispatch({ type: 'ON_UPDATE_ITEM', payload: { oldValue, newValue } })
   }
 
   const onTrashItem = (item: T) => {
