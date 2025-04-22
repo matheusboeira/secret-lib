@@ -7,7 +7,7 @@ export const tooltip = createVariants({
     'motion-reduce:transition-none motion-reduce:hover:transform-none'
   ],
   content: [
-    'bg-white dark:bg-black text-black dark:text-white py-1 px-2 rounded-lg',
-    'border border-zinc-200 dark:border-zinc-600 shadow-sm'
+    'bg-white dark:bg-zinc-900 text-black dark:text-white py-1 px-2 rounded-lg',
+    'border border-zinc-200 dark:border-zinc-100/10 shadow-sm'
   ]
 })

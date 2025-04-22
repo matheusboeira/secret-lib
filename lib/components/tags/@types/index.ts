@@ -1,12 +1,6 @@
 import type { UseDisclosureReturn } from '@/lib/hooks'
 import type { TagRefs } from '../hooks/use-refs'
 
-declare module 'react' {
-  function forwardRef<T, P>(
-    render: (props: P, ref: React.Ref<T>) => React.ReactNode | null
-  ): (props: P & React.RefAttributes<T>) => React.ReactNode | null
-}
-
 type TagContextInnerHandlers<T> = {
   onBackspace: () => void
   onClearItems: () => void

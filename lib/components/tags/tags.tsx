@@ -34,6 +34,8 @@ const TagsComponent = <T,>(
   )
 }
 
-export const Tags = forwardRef(TagsComponent)
+export const Tags = forwardRef(TagsComponent) as <T>(
+  props: TagsProps<T> & { ref?: React.Ref<HTMLInputElement> }
+) => ReturnType<typeof TagsComponent>
 
 TagsComponent.displayName = 'SecretLib.Tags'
