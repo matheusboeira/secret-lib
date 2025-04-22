@@ -12,6 +12,7 @@ const TagsSearchComponent = (
   const refs = useTagStore((state) => state.refs)
   const disclosure = useTagStore((state) => state.disclosure)
   const allowCustomValues = useTagStore((state) => state.allowCustomValues)
+  const tagId = useTagStore((state) => state.tagId)
   const onSearch = useTagStore((state) => state.onSearch)
   const onBackspace = useTagStore((state) => state.onBackspace)
   const onAddItem = useTagStore((state) => state.onAddItem)
@@ -33,6 +34,19 @@ const TagsSearchComponent = (
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
+
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault()
+      disclosure.onOpen()
+      refs.buttomItemRefs.current[0]?.focus()
+      return
+    }
+
+    if (e.key === 'Enter' && value.length === 0) {
+      e.preventDefault()
+      disclosure.onOpen()
+      return
+    }
 
     if (e.key === 'Enter') {
       e.preventDefault()
@@ -64,6 +78,7 @@ const TagsSearchComponent = (
 
   return (
     <input
+      id={tagId}
       type="text"
       data-slot="input"
       className={tags.input()}

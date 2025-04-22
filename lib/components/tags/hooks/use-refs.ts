@@ -6,7 +6,7 @@ export type TagRefs = {
   listItemsRef: RefObject<HTMLDivElement | null>
   openButtonRef: RefObject<HTMLButtonElement | null>
   selectedItemsWrapperRef: RefObject<HTMLUListElement | null>
-  itemsRef: RefObject<HTMLDivElement[] | null>
+  buttomItemRefs: RefObject<HTMLButtonElement[]>
   clearButtonRef: RefObject<HTMLButtonElement | null>
 }
 
@@ -17,7 +17,7 @@ export const useTagRefs = (): TagRefs => {
   const openButtonRef = useRef<HTMLButtonElement | null>(null)
   const clearButtonRef = useRef<HTMLButtonElement | null>(null)
   const selectedItemsWrapperRef = useRef<HTMLUListElement | null>(null)
-  const itemsRef = useRef<HTMLDivElement[] | null>(null)
+  const buttomItemRefs = useRef<HTMLButtonElement[]>([])
 
   return {
     inputWrapperRef,
@@ -25,7 +25,7 @@ export const useTagRefs = (): TagRefs => {
     listItemsRef,
     openButtonRef,
     selectedItemsWrapperRef,
-    itemsRef,
+    buttomItemRefs,
     clearButtonRef
   }
 }

@@ -25,6 +25,7 @@ export type TagContextProps<T> = TagContextInnerHandlers<T> &
     disclosure: UseDisclosureReturn
     search: string
     allowCustomValues?: boolean | ((item: string) => T)
+    tagId: string
   }
 
 export type TagProviderProps<T> = Pick<
@@ -55,4 +56,6 @@ export type TagsProps<T> = Omit<SelectedItemsProps<T>, 'search'> &
   Pick<
     TagContextProps<T>,
     'items' | 'selectedItems' | 'allowCustomValues' | 'onSelectionChange'
-  >
+  > & {
+    label?: React.ReactNode
+  }

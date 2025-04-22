@@ -23,6 +23,7 @@ export const PreviewTags = () => {
         items={randomItems}
         selectedItems={selected}
         onSelectionChange={setSelected}
+        label="Tags"
         allowCustomValues
         ref={ref}
       >
