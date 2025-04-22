@@ -1,7 +1,12 @@
 import { createReducer } from '@/lib/core/utils/create-reducer'
 import { isEqual } from '@/lib/core/utils/is-equal'
-import { useEffect, useReducer } from 'react'
-import type { ReducerActions, ReducerState } from '../@types/reducer.types'
+import { useReducer } from 'react'
+import type {
+  ReducerActions,
+  ReducerHandlers,
+  ReducerState
+} from '../@types/reducer.types'
+import { useSyncStates } from './use-sync-states'
 
 const findEqualItem = <T>(list: T[], item: T): T | undefined => {
   return list.find((i) => isEqual(i, item))
@@ -131,6 +136,15 @@ const createReducerState = <T>() =>
         items: updatedItems,
         selectedItems: updatedSelectedItems
       }
+    },
+    SYNC_SELECTED_ITEMS: (state, action) => {
+      const isDiff = !isEqual(state.selectedItems, action.payload)
+      if (!isDiff) return state
+
+      return {
+        ...state,
+        selectedItems: action.payload
+      }
     }
   })
 
@@ -140,21 +154,18 @@ const initialState = <T>(
   search: '',
   items: [],
   selectedItems: [],
-  onSelectionChange: () => {},
   ...defaultValues
 })
 
 export const useReducerState = <T>(
-  defaultValues?: Partial<ReducerState<T>>
+  defaultValues?: Partial<ReducerState<T>>,
+  handlers?: Pick<ReducerHandlers<T>, 'onSelectionChange'>
 ) => {
   const [state, dispatch] = useReducer(
     createReducerState<T>(),
-    initialState<T>(defaultValues)
+    defaultValues,
+    initialState<T>
   )
-
-  useEffect(() => {
-    state.onSelectionChange?.(state.selectedItems ?? [])
-  }, [state.selectedItems, state.onSelectionChange])
 
   const onSearch = (value: string) => {
     dispatch({ type: 'ON_SEARCH', payload: value })
@@ -187,6 +198,17 @@ export const useReducerState = <T>(
   const onTrashItem = (item: T) => {
     dispatch({ type: 'ON_TRASH_ITEM', payload: item })
   }
+
+  useSyncStates({
+    externalState: defaultValues?.selectedItems ?? [],
+    internalState: state.selectedItems ?? [],
+    onExternalChange: (externalSelectedItems) => {
+      dispatch({ type: 'SYNC_SELECTED_ITEMS', payload: externalSelectedItems })
+    },
+    onInternalChange: (internalSelectedItems) => {
+      handlers?.onSelectionChange?.(internalSelectedItems)
+    }
+  })
 
   return {
     search: state.search,

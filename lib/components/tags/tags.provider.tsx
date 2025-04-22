@@ -15,7 +15,10 @@ export function TagProvider<T>({
   children,
   onSelectionChange
 }: TagProviderProps<T>) {
-  const state = useReducerState<T>({ items, selectedItems, onSelectionChange })
+  const state = useReducerState<T>(
+    { items, selectedItems },
+    { onSelectionChange }
+  )
   const disclosure = useDisclosure()
   const refs = useTagRefs()
   const search = state.search?.toLowerCase().trim()
