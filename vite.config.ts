@@ -13,7 +13,7 @@ export default defineConfig({
       fileName: (format) => `index.${format === 'es' ? 'mjs' : 'cjs'}`
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'tailwindcss']
+      external: ['react', 'react-dom', 'tailwindcss', 'clsx', 'tailwind-merge']
     },
     sourcemap: true,
     outDir: 'dist',
