@@ -21,7 +21,7 @@ export const createVariants = <T extends Record<string, string[]>>(
     const baseArray = classes[key] as string[]
 
     const fn: CreateVariantsFunction = (extra: ClassValue[] = []) =>
-      cn([...baseArray, ...extra].join(' '))
+      cn([baseArray, extra])
 
     result[key] = fn
   }
