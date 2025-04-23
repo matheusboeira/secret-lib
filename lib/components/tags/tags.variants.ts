@@ -4,7 +4,7 @@ export const tags = createVariants({
   baseWrapper: [
     'group/base-wrapper relative rounded-xl px-1.5 py-1',
     'grid grid-cols-[1fr_auto] items-center justify-between gap-1',
-    'bg-zinc-100 hover:bg-gray-200',
+    'bg-zinc-100 hover:bg-gray-300/40',
     'dark:bg-zinc-900 dark:hover:bg-zinc-800/70',
     'min-h-10 cursor-pointer cursor-text',
     'border border-zinc-500/5 dark:border-zinc-100/5'
