@@ -1,6 +1,6 @@
 {
 	"name": "secret-lib",
-	"version": "0.1.11",
+	"version": "0.2.0",
 	"license": "MIT",
 	"author": "Matheus Boeira <matheusb_dias@hotmail.com>",
 	"repository": {
@@ -10,17 +10,41 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"keywords": ["react", "hooks", "components", "tailwindcss"],
+	"keywords": [
+		"react",
+		"hooks",
+		"components",
+		"tailwindcss"
+	],
 	"main": "dist/index.cjs",
 	"types": "dist/index.d.ts",
-	"files": ["dist", "README.md", "LICENSE"],
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
 	"sideEffects": false,
 	"type": "module",
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
+			"types": "./dist/lib/index.d.ts",
 			"import": "./dist/index.mjs",
 			"require": "./dist/index.cjs"
+		},
+		"./hooks": {
+			"types": "./dist/lib/hooks/index.d.ts",
+			"import": "./dist/lib/hooks/index.mjs",
+			"require": "./dist/lib/hooks/index.cjs"
+		},
+		"./tooltip": {
+			"types": "./dist/lib/components/tooltip/index.d.ts",
+			"import": "./dist/lib/components/tooltip/index.mjs",
+			"require": "./dist/lib/components/tooltip/index.cjs"
+		},
+		"./tags": {
+			"types": "./dist/lib/components/tags/index.d.ts",
+			"import": "./dist/lib/components/tags/index.mjs",
+			"require": "./dist/lib/components/tags/index.cjs"
 		}
 	},
 	"scripts": {
@@ -32,14 +56,14 @@
 		"dev": "vite"
 	},
 	"peerDependencies": {
+		"clsx": "^2.0.0",
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
+		"tailwind-merge": "^3.2.0",
 		"tailwindcss": "^3.4.17"
 	},
 	"dependencies": {
-		"clsx": "^2.0.0",
-		"tailwind-merge": "^3.2.0",
-		"tailwind-variants": "^1.0.0"
+		"virtua": "^0.40.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
@@ -50,6 +74,7 @@
 		"autoprefixer": "^10.0.0",
 		"postcss": "^8.0.0",
 		"react-scan": "^0.3.3",
+		"rollup-plugin-visualizer": "^5.14.0",
 		"typescript": "^5.0.0",
 		"vite": "^6.2.6",
 		"vite-tsconfig-paths": "^5.1.4"

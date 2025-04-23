@@ -1,9 +1,9 @@
-import { cn } from '@/lib/utils'
 import { cloneElement, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useTransitionVisibility } from '../../hooks'
 import { useCallbackRefs } from '../../hooks/use-callback-refs'
-import type { TooltipProps } from './tooltip.type'
+import type { TooltipProps } from './@types'
+import { tooltip } from './tooltip.variants'
 
 const OFFSET_BORDER = 10
 
@@ -87,22 +87,14 @@ export const Tooltip = ({
       {isMounted &&
         createPortal(
           <div
+            data-slot="base"
             ref={tooltipRef}
-            className={cn(
-              'fixed pointer-events-none w-max h-fit z-50',
-              'will-change-auto transition-all duration-200 ease-out transform',
-              'motion-reduce:transition-none motion-reduce:hover:transform-none',
+            className={tooltip.base([
               isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90',
               classNames?.base
-            )}
+            ])}
           >
-            <div
-              className={cn(
-                'bg-white dark:bg-black text-black dark:text-white py-1 px-2 rounded-lg',
-                'border border-gray-200 dark:border-gray-600 shadow-sm',
-                classNames?.content
-              )}
-            >
+            <div className={tooltip.content([classNames?.content])}>
               {typeof content === 'function' ? content(isVisible) : content}
             </div>
           </div>,

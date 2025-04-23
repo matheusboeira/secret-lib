@@ -1,0 +1,61 @@
+import type { UseDisclosureReturn } from '@/lib/hooks'
+import type { TagRefs } from '../hooks/use-refs'
+
+type TagContextInnerHandlers<T> = {
+  onBackspace: () => void
+  onClearItems: () => void
+  onTrashItem: (item: T) => void
+  onSearch: (value: string) => void
+  onSelectItem: (item: T) => void
+  onAddItem: (item: T) => void
+  onFindItem: (item: T) => T | undefined
+  onUpdateItem: (oldValue: T, newValue: T) => void
+}
+
+type TagContextOuterHandlers<T> = {
+  onSelectionChange?: (items: T[]) => void
+}
+
+export type TagContextProps<T> = TagContextInnerHandlers<T> &
+  TagContextOuterHandlers<T> & {
+    items: T[]
+    selectedItems?: T[]
+    filteredItems?: T[]
+    refs: TagRefs
+    disclosure: UseDisclosureReturn
+    search: string
+    allowCustomValues?: boolean | ((item: string) => T)
+    tagId: string
+  }
+
+export type TagProviderProps<T> = Pick<
+  TagContextProps<T>,
+  'items' | 'selectedItems' | 'allowCustomValues' | 'onSelectionChange'
+> & {
+  children: React.ReactNode
+}
+
+export type TagSearchHandlers = {
+  onBlur?: () => void
+  onFocus?: () => void
+}
+
+export type SelectedItemHandlers<T> = {
+  onClearItem: () => void
+  onUpdateItem: (newValue: T) => void
+}
+
+export type SelectedItemsProps<T> = {
+  search: React.ReactNode
+  children: (item: T) => React.ReactNode
+  renderValue?: (item: T, handlers: SelectedItemHandlers<T>) => React.ReactNode
+}
+
+export type TagsProps<T> = Omit<SelectedItemsProps<T>, 'search'> &
+  TagSearchHandlers &
+  Pick<
+    TagContextProps<T>,
+    'items' | 'selectedItems' | 'allowCustomValues' | 'onSelectionChange'
+  > & {
+    label?: React.ReactNode
+  }
