@@ -19,8 +19,8 @@ type TagContextOuterHandlers<T> = {
 export type TagContextProps<T> = TagContextInnerHandlers<T> &
   TagContextOuterHandlers<T> & {
     items: T[]
+    filteredItems: T[]
     selectedItems?: T[]
-    filteredItems?: T[]
     refs: TagRefs
     disclosure: UseDisclosureReturn
     search: string

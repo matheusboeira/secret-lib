@@ -29,3 +29,5 @@ export const LoaderIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   )
 })
+
+LoaderIcon.displayName = 'SecretLib.LoaderIcon'

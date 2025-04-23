@@ -15,7 +15,7 @@ export const tags = createVariants({
   ],
   selectedItemsWrapper: ['flex items-center gap-1 flex-wrap'],
   tagItem: [
-    'flex w-full items-center gap-2 px-3 py-0.5 rounded-lg min-h-9 h-fit',
+    'flex justify-between w-full items-center gap-2 px-3 py-0.5 rounded-lg min-h-9 h-fit',
     'bg-transparent text-black dark:text-white z-40',
     'hover:bg-zinc-200 dark:hover:bg-zinc-800/70 transition-colors duration-100',
     'outline-none outline-offset-2 focus-visible:outline-blue-500',
@@ -31,9 +31,8 @@ export const tags = createVariants({
     'top-full mt-2 pt-2 scrollbar-hide'
   ],
   checkedIcon: [
-    'absolute top-1/2 -translate-y-1/2 right-2',
-    'size-4 transition-all duration-200 ease-in-out pointer-events-none',
-    'opacity-0 scale-75'
+    'size-4 pointer-events-none',
+    'opacity-0 scale-75 transition-all duration-200 ease-in-out'
   ],
   actionButton: [
     'p-2 rounded-full z-20',

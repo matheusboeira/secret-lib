@@ -14,8 +14,8 @@ export function useFilteredItems<T>(
   items: T[] | undefined,
   search: string | undefined,
   keys?: (keyof T)[]
-): T[] | undefined {
-  if (!items) return undefined
+): T[] {
+  if (!items) return []
 
   const normalizedSearch = search?.toLowerCase().trim()
   if (!normalizedSearch) return items

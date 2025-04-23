@@ -23,3 +23,5 @@ export const SelectorIcon = memo((props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   )
 })
+
+SelectorIcon.displayName = 'SecretLib.SelectorIcon'

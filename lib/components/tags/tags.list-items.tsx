@@ -11,6 +11,7 @@ export const TagListItems = <T,>({ children }: TagListItemsProps<T>) => {
   const refs = useTagStore((state) => state.refs)
   const disclosure = useTagStore((state) => state.disclosure)
   const filteredItems = useTagStore((state) => state.filteredItems)
+  const indexes = filteredItems.length > 0 ? [0, filteredItems.length - 1] : []
 
   return (
     <div
@@ -26,7 +27,7 @@ export const TagListItems = <T,>({ children }: TagListItemsProps<T>) => {
       {filteredItems?.length === 0 && (
         <span className="p-2 text-sm">No items found.</span>
       )}
-      <Virtualizer>
+      <Virtualizer overscan={10} as="ul" item="li" keepMounted={indexes}>
         {filteredItems?.map((item, index) => (
           <TagButton
             key={index}

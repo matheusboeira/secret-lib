@@ -45,20 +45,20 @@ const TagButtonComponent = <T,>(
   )
 
   return (
-    <div className="relative h-full w-full">
-      <button
-        type="button"
-        className={tags.tagItem()}
-        aria-checked={isSelected ? 'true' : 'false'}
-        {...pressProps}
-        ref={ref}
-      >
-        {children}
-      </button>
+    <button
+      type="button"
+      className={tags.tagItem()}
+      aria-checked={isSelected ? 'true' : 'false'}
+      {...pressProps}
+      ref={ref}
+    >
+      {children}
       <CheckedIcon
-        className={tags.checkedIcon([isSelected && 'opacity-100 !scale-100'])}
+        className={tags.checkedIcon([
+          isSelected && 'ml-auto opacity-100 scale-100'
+        ])}
       />
-    </div>
+    </button>
   )
 }
 

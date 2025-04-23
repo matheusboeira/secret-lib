@@ -22,3 +22,5 @@ export const ClearIcon = (props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   )
 }
+
+ClearIcon.displayName = 'SecretLib.ClearIcon'

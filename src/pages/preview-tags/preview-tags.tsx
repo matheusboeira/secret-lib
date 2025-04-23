@@ -2,7 +2,7 @@ import { PageLayout } from '@/components/page-layout'
 import { Tags } from '@/lib/components'
 import { useRef, useState } from 'react'
 
-const randomItems = Array.from({ length: 1000 }, (_, i) => ({
+const randomItems = Array.from({ length: 10000 }, (_, i) => ({
   id: i.toString(),
   name: `Item ${i + 1}`,
   description: `Description ${i + 1}`,
