@@ -7,7 +7,16 @@ import { tags } from '../tags.variants'
 export const OpenListItemsButton = memo(() => {
   const refs = useTagStore((state) => state.refs)
   const disclosure = useTagStore((state) => state.disclosure)
-  const pressProps = usePress({ onPress: disclosure.onOpenChange })
+
+  const pressProps = usePress({
+    onPress: () => {
+      disclosure.onOpenChange()
+
+      if (!disclosure.isOpen) {
+        refs.buttomItemRefs.current[0]?.focus()
+      }
+    }
+  })
 
   return (
     <button
