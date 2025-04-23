@@ -203,10 +203,15 @@ export const useReducerState = <T>(
     externalState: defaultValues?.selectedItems ?? [],
     internalState: state.selectedItems ?? [],
     onExternalChange: (externalSelectedItems) => {
-      dispatch({ type: 'SYNC_SELECTED_ITEMS', payload: externalSelectedItems })
+      queueMicrotask(() =>
+        dispatch({
+          type: 'SYNC_SELECTED_ITEMS',
+          payload: externalSelectedItems
+        })
+      )
     },
     onInternalChange: (internalSelectedItems) => {
-      handlers?.onSelectionChange?.(internalSelectedItems)
+      queueMicrotask(() => handlers?.onSelectionChange?.(internalSelectedItems))
     }
   })
 

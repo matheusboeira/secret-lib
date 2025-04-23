@@ -1,3 +1,4 @@
+import { Virtualizer } from 'virtua'
 import { useTagStore } from './hooks/use-tag-context'
 import { TagButton } from './tags-button'
 import { tags } from './tags.variants'
@@ -25,19 +26,21 @@ export const TagListItems = <T,>({ children }: TagListItemsProps<T>) => {
       {filteredItems?.length === 0 && (
         <span className="p-2 text-sm">No items found.</span>
       )}
-      {filteredItems?.map((item, index) => (
-        <TagButton
-          key={index}
-          value={item}
-          index={index}
-          ref={(ref) => {
-            if (!ref) return
-            refs.buttomItemRefs.current[index] = ref
-          }}
-        >
-          {children(item as T)}
-        </TagButton>
-      ))}
+      <Virtualizer>
+        {filteredItems?.map((item, index) => (
+          <TagButton
+            key={index}
+            value={item}
+            index={index}
+            ref={(ref) => {
+              if (!ref) return
+              refs.buttomItemRefs.current[index] = ref
+            }}
+          >
+            {children(item as T)}
+          </TagButton>
+        ))}
+      </Virtualizer>
     </div>
   )
 }

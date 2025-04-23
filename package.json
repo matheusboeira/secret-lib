@@ -47,14 +47,14 @@
 		"dev": "vite"
 	},
 	"peerDependencies": {
+		"clsx": "^2.0.0",
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
-		"tailwindcss": "^3.4.17",
-		"clsx": "^2.0.0",
-		"tailwind-merge": "^3.2.0"
+		"tailwind-merge": "^3.2.0",
+		"tailwindcss": "^3.4.17"
 	},
 	"dependencies": {
-		"zustand": "^5.0.3"
+		"virtua": "^0.40.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
