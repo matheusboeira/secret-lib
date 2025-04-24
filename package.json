@@ -10,19 +10,10 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"keywords": [
-		"react",
-		"hooks",
-		"components",
-		"tailwindcss"
-	],
+	"keywords": ["react", "hooks", "components", "tailwindcss"],
 	"main": "dist/index.cjs",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist",
-		"README.md",
-		"LICENSE"
-	],
+	"files": ["dist", "README.md", "LICENSE"],
 	"sideEffects": false,
 	"type": "module",
 	"exports": {
@@ -48,12 +39,14 @@
 		}
 	},
 	"scripts": {
-		"build": "vite build && tsc --emitDeclarationOnly --declaration --declarationDir dist --project tsconfig.build.json",
+		"build": "vite build --mode lib && tsc --project tsconfig.lib.json",
+		"build:preview": "vite build --mode app && tsc --project tsconfig.build.json",
 		"prepublish": "npm run build",
 		"publish:major": "npm version major && npm publish --access public",
 		"publish:minor": "npm version minor && npm publish --access public",
 		"publish:patch": "npm version patch && npm publish --access public",
-		"dev": "vite"
+		"dev": "vite",
+		"preview": "vite preview"
 	},
 	"peerDependencies": {
 		"clsx": "^2.0.0",

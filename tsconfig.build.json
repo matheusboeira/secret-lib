@@ -1,13 +1,12 @@
 {
 	"extends": "./tsconfig.json",
-	"include": ["lib"],
 	"compilerOptions": {
+		"jsx": "react-jsx",
 		"declaration": true,
-		"emitDeclarationOnly": true,
+		"declarationDir": "preview",
+		"outDir": "preview",
 		"noEmit": false,
-		"outDir": "dist",
-		"composite": false,
-		"declarationMap": false,
-		"skipLibCheck": true
-	}
+		"emitDeclarationOnly": true
+	},
+	"include": ["src", "lib"]
 }
