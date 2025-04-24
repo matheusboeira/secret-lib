@@ -29,7 +29,7 @@ export type AutocompleteContextProps<T> = AutocompleteContextInnerHandlers<T> &
     autocompleteId: string
     allowCustomValues?: boolean | ((item: string) => T)
     mode?: 'single' | 'multiple'
-    classNames?: Record<keyof typeof autocomplete, ClassValue>
+    classNames?: Partial<Record<keyof typeof autocomplete, ClassValue>>
   }
 
 export type AutocompleteProviderProps<T> = Pick<
