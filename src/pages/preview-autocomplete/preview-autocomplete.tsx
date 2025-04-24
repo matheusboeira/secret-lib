@@ -1,5 +1,5 @@
 import { PageLayout } from '@/components/page-layout'
-import { Tags } from '@/lib/components'
+import { Autocomplete } from '@/lib/components'
 import { useRef, useState } from 'react'
 
 const randomItems = Array.from({ length: 10000 }, (_, i) => ({
@@ -9,7 +9,7 @@ const randomItems = Array.from({ length: 10000 }, (_, i) => ({
   price: i + 1
 }))
 
-export const PreviewTags = () => {
+export const PreviewAutocomplete = () => {
   const [selected, setSelected] = useState<(typeof randomItems)[number][]>([])
   const ref = useRef<HTMLInputElement>(null)
 
@@ -24,7 +24,7 @@ export const PreviewTags = () => {
       >
         Reset
       </button>
-      <Tags
+      <Autocomplete
         items={randomItems}
         selectedItems={selected}
         onSelectionChange={setSelected}
@@ -33,7 +33,7 @@ export const PreviewTags = () => {
         ref={ref}
       >
         {(item) => <div>{item.name}</div>}
-      </Tags>
+      </Autocomplete>
       <pre className="mt-96">{JSON.stringify(selected, null, 2)}</pre>
     </PageLayout>
   )
