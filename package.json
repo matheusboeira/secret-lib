@@ -1,6 +1,6 @@
 {
 	"name": "secret-lib",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"license": "MIT",
 	"author": "Matheus Boeira <matheusb_dias@hotmail.com>",
 	"repository": {
@@ -10,10 +10,19 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"keywords": ["react", "hooks", "components", "tailwindcss"],
+	"keywords": [
+		"react",
+		"hooks",
+		"components",
+		"tailwindcss"
+	],
 	"main": "dist/index.cjs",
 	"types": "dist/index.d.ts",
-	"files": ["dist", "README.md", "LICENSE"],
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
 	"sideEffects": false,
 	"type": "module",
 	"exports": {
