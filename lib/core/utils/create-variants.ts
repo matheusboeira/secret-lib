@@ -1,5 +1,18 @@
-import { cn } from '@/utils/cn'
-import type { ClassValue } from 'clsx'
+import { cn } from '@/lib/core/utils/cn'
+
+type ClassArray = ClassValue[]
+type ClassDictionary = {
+  [x: string]: any
+}
+export type ClassValue =
+  | string
+  | number
+  | bigint
+  | boolean
+  | ClassArray
+  | ClassDictionary
+  | null
+  | undefined
 
 type CreateVariantsFunction = (...inputs: ClassValue[]) => string
 

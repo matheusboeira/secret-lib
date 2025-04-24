@@ -1,7 +1,7 @@
 import type { UseDisclosureReturn } from '@/lib/hooks'
 import type { AutocompleteRefs } from '../hooks/use-refs'
 import type { autocomplete } from '../autocomplete.variants'
-import type { ClassValue } from 'clsx'
+import type { ClassValue } from '@/lib/core/utils/create-variants'
 
 type AutocompleteContextInnerHandlers<T> = {
   onBackspace: () => void

@@ -1,4 +1,4 @@
-import { cn } from '@/utils/cn'
+import { cn } from '@/lib/core/utils/cn'
 import ThemeSwitcher from './theme/theme-switcher'
 
 type PageLayoutProps = {

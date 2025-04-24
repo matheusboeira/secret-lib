@@ -1,4 +1,4 @@
-import { cn } from '@/utils/cn'
+import { cn } from '@/lib/core/utils/cn'
 import type { ComponentProps } from 'react'
 
 export const Input = ({ className, ...props }: ComponentProps<'input'>) => {
