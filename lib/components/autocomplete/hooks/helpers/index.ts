@@ -8,8 +8,9 @@ const getItemHash = <T>(item: T): string => {
   if (typeof item === 'number') return `n_${item}`
   if (typeof item === 'boolean') return `b_${Number(item)}`
 
-  if (typeof item === 'object' && 'id' in item) {
-    return `id_${(item as any).id}`
+  if (typeof item === 'object') {
+    if ('id' in item) return `id_${(item as any).id}`
+    if ('_id' in item) return `id_${(item as any)._id}`
   }
 
   try {
