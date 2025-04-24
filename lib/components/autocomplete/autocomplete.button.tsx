@@ -18,6 +18,7 @@ const AutocompleteButtonComponent = <T,>(
   const refs = useAutocompleteStore((state) => state.refs)
   const selectedItems = useAutocompleteStore((state) => state.selectedItems)
   const onSelectItem = useAutocompleteStore((state) => state.onSelectItem)
+  const classNames = useAutocompleteStore((state) => state.classNames)
 
   const pressProps = usePress({
     onPress: () => onSelectItem(value),
@@ -47,7 +48,7 @@ const AutocompleteButtonComponent = <T,>(
   return (
     <button
       type="button"
-      className={autocomplete.buttonItem()}
+      className={autocomplete.buttonItem(classNames?.buttonItem)}
       aria-checked={isSelected ? 'true' : 'false'}
       {...pressProps}
       ref={ref}
@@ -55,7 +56,8 @@ const AutocompleteButtonComponent = <T,>(
       {children}
       <CheckedIcon
         className={autocomplete.checkedIcon(
-          isSelected && 'ml-auto opacity-100 scale-100'
+          isSelected && 'ml-auto opacity-100 scale-100',
+          classNames?.checkedIcon
         )}
       />
     </button>

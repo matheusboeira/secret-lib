@@ -34,7 +34,12 @@ export type AutocompleteContextProps<T> = AutocompleteContextInnerHandlers<T> &
 
 export type AutocompleteProviderProps<T> = Pick<
   AutocompleteContextProps<T>,
-  'items' | 'selectedItems' | 'allowCustomValues' | 'onSelectionChange' | 'mode'
+  | 'items'
+  | 'selectedItems'
+  | 'allowCustomValues'
+  | 'onSelectionChange'
+  | 'mode'
+  | 'classNames'
 > & {
   children: React.ReactNode
 }
@@ -64,6 +69,7 @@ export type AutocompleteProps<T> = Omit<SelectedItemsProps<T>, 'search'> &
     | 'allowCustomValues'
     | 'onSelectionChange'
     | 'mode'
+    | 'classNames'
   > & {
     label?: React.ReactNode
   }

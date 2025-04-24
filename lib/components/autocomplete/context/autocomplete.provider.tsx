@@ -16,8 +16,9 @@ export function AutocompleteProvider<T>({
   selectedItems,
   allowCustomValues,
   children,
+  onSelectionChange,
   mode = 'multiple',
-  onSelectionChange
+  classNames
 }: AutocompleteProviderProps<T>) {
   const state = useReducerState<T>(
     { items, selectedItems, mode },
@@ -45,6 +46,7 @@ export function AutocompleteProvider<T>({
       filteredItems,
       allowCustomValues,
       autocompleteId,
+      classNames,
       ...state
     })
   )

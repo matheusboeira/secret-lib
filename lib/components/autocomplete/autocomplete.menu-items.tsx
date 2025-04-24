@@ -13,6 +13,7 @@ export const AutocompleteMenuItems = <T,>({
   const refs = useAutocompleteStore((state) => state.refs)
   const disclosure = useAutocompleteStore((state) => state.disclosure)
   const filteredItems = useAutocompleteStore((state) => state.filteredItems)
+  const classNames = useAutocompleteStore((state) => state.classNames)
   const indexes = filteredItems.length > 0 ? [0, filteredItems.length - 1] : []
 
   return (
@@ -23,7 +24,8 @@ export const AutocompleteMenuItems = <T,>({
       aria-orientation="vertical"
       aria-expanded={disclosure.isOpen}
       className={autocomplete.menuItemsWrapper(
-        disclosure.isOpen && 'opacity-100 translate-y-0 pointer-events-auto'
+        disclosure.isOpen && 'opacity-100 translate-y-0 pointer-events-auto',
+        classNames?.menuItemsWrapper
       )}
     >
       {filteredItems?.length === 0 && (

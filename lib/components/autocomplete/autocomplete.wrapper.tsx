@@ -10,6 +10,7 @@ export const AutocompleteWrapper = memo(
   ({ children }: AutocompleteWrapperProps) => {
     const refs = useAutocompleteStore((state) => state.refs)
     const disclosure = useAutocompleteStore((state) => state.disclosure)
+    const classNames = useAutocompleteStore((state) => state.classNames)
 
     const onHandleClick = () => {
       refs.inputRef.current?.focus()
@@ -28,7 +29,7 @@ export const AutocompleteWrapper = memo(
     return (
       <div
         data-slot="base-wrapper"
-        className={autocomplete.baseWrapper()}
+        className={autocomplete.baseWrapper(classNames?.baseWrapper)}
         onClick={onHandleClick}
         onKeyDown={() => {}}
         ref={refs.inputWrapperRef}

@@ -12,13 +12,16 @@ export const AutocompleteSelectedItems = <T,>({
 }: SelectedItemsProps<T>) => {
   const refs = useAutocompleteStore((state) => state.refs)
   const selectedItems = useAutocompleteStore((state) => state.selectedItems)
+  const classNames = useAutocompleteStore((state) => state.classNames)
   const onUpdateItem = useAutocompleteStore((state) => state.onUpdateItem)
   const onSelectItem = useAutocompleteStore((state) => state.onSelectItem)
 
   return (
     <ul
       data-slot="selected-items-wrapper"
-      className={autocomplete.selectedItemsWrapper()}
+      className={autocomplete.selectedItemsWrapper(
+        classNames?.selectedItemsWrapper
+      )}
       ref={refs.selectedItemsWrapperRef}
     >
       {selectedItems?.map((item) => {

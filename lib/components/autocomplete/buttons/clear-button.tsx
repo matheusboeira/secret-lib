@@ -6,8 +6,9 @@ import { useAutocompleteStore } from '../hooks/use-autocomplete-context'
 
 export const CloseButton = memo(() => {
   const refs = useAutocompleteStore((state) => state.refs)
-  const onClearItems = useAutocompleteStore((state) => state.onClearItems)
   const selectedItems = useAutocompleteStore((state) => state.selectedItems)
+  const classNames = useAutocompleteStore((state) => state.classNames)
+  const onClearItems = useAutocompleteStore((state) => state.onClearItems)
 
   const pressProps = usePress({
     onPress: () => {
@@ -24,7 +25,9 @@ export const CloseButton = memo(() => {
     <button
       type="button"
       ref={refs.clearButtonRef}
-      className={autocomplete.clearAndOpenButton()}
+      className={autocomplete.clearAndOpenButton(
+        classNames?.clearAndOpenButton
+      )}
       {...pressProps}
     >
       <XIcon />
