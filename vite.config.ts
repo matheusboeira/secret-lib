@@ -22,7 +22,10 @@ export default defineConfig({
         index: path.resolve(__dirname, 'lib/index.ts'),
         hooks: path.resolve(__dirname, 'lib/hooks/index.ts'),
         tooltip: path.resolve(__dirname, 'lib/components/tooltip/index.ts'),
-        tags: path.resolve(__dirname, 'lib/components/tags/index.ts')
+        autocomplete: path.resolve(
+          __dirname,
+          'lib/components/autocomplete/index.ts'
+        )
       },
       formats: ['es', 'cjs'],
       fileName: (format, entryName) =>

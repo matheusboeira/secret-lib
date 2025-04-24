@@ -10,19 +10,10 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"keywords": [
-		"react",
-		"hooks",
-		"components",
-		"tailwindcss"
-	],
+	"keywords": ["react", "hooks", "components", "tailwindcss"],
 	"main": "dist/index.cjs",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist",
-		"README.md",
-		"LICENSE"
-	],
+	"files": ["dist", "README.md", "LICENSE"],
 	"sideEffects": false,
 	"type": "module",
 	"exports": {
@@ -41,10 +32,10 @@
 			"import": "./dist/lib/components/tooltip/index.mjs",
 			"require": "./dist/lib/components/tooltip/index.cjs"
 		},
-		"./tags": {
-			"types": "./dist/lib/components/tags/index.d.ts",
-			"import": "./dist/lib/components/tags/index.mjs",
-			"require": "./dist/lib/components/tags/index.cjs"
+		"./autocomplete": {
+			"types": "./dist/lib/components/autocomplete/index.d.ts",
+			"import": "./dist/lib/components/autocomplete/index.mjs",
+			"require": "./dist/lib/components/autocomplete/index.cjs"
 		}
 	},
 	"scripts": {
