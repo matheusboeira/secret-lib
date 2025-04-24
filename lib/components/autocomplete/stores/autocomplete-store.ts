@@ -1,19 +1,19 @@
 import type { UseDisclosureReturn } from '@/lib/hooks'
-import type { TagRefs } from '../hooks/use-refs'
+import type { AutocompleteRefs } from '../hooks/use-refs'
 import { createStore } from '@/lib/core/stores/create-store'
 
-export type TagState<T> = {
+export type AutocompleteState<T> = {
   items: T[]
   selectedItems: T[]
   filteredItems: T[]
   search: string
   disclosure: UseDisclosureReturn | null
-  refs: TagRefs | null
+  refs: AutocompleteRefs | null
   onTrashItem: (item: T) => void
 }
 
-export function createTagStore<T>() {
-  return createStore<TagState<T>>({
+export function createAutocompleteStore<T>() {
+  return createStore<AutocompleteState<T>>({
     items: [],
     selectedItems: [],
     filteredItems: [],

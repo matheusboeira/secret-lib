@@ -4,6 +4,8 @@ export type ReducerState<T> = {
   selectedItems?: T[]
 }
 
+export type InternalReducerState<T> = ReducerState<T>
+
 export type ReducerHandlers<T> = {
   onSelectionChange?: (items: T[]) => void
 }

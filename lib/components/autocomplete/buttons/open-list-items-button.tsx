@@ -1,12 +1,12 @@
 import { SelectorIcon } from '@/lib/core/icons'
 import { usePress } from '@/lib/hooks'
 import { memo } from 'react'
-import { useTagStore } from '../hooks/use-tag-context'
-import { tags } from '../tags.variants'
+import { autocomplete } from '../autocomplete.variants'
+import { useAutocompleteStore } from '../hooks/use-autocomplete-context'
 
 export const OpenListItemsButton = memo(() => {
-  const refs = useTagStore((state) => state.refs)
-  const disclosure = useTagStore((state) => state.disclosure)
+  const refs = useAutocompleteStore((state) => state.refs)
+  const disclosure = useAutocompleteStore((state) => state.disclosure)
 
   const pressProps = usePress({
     onPress: () => {
@@ -22,7 +22,7 @@ export const OpenListItemsButton = memo(() => {
     <button
       type="button"
       ref={refs.openButtonRef}
-      className={tags.actionButton(['rounded-lg'])}
+      className={autocomplete.clearAndOpenButton(['rounded-lg'])}
       {...pressProps}
     >
       <SelectorIcon />

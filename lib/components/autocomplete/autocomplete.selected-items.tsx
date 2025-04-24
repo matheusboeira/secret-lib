@@ -1,7 +1,7 @@
 import { Chip } from '../chip'
 import type { SelectedItemsProps } from './@types'
-import { useTagStore } from './hooks/use-tag-context'
-import { tags } from './tags.variants'
+import { autocomplete } from './autocomplete.variants'
+import { useAutocompleteStore } from './hooks/use-autocomplete-context'
 
 type ItemKey<T> = { id?: string; _id?: string } & T
 
@@ -10,15 +10,15 @@ export const SelectedItems = <T,>({
   children,
   renderValue
 }: SelectedItemsProps<T>) => {
-  const refs = useTagStore((state) => state.refs)
-  const selectedItems = useTagStore((state) => state.selectedItems)
-  const onUpdateItem = useTagStore((state) => state.onUpdateItem)
-  const onSelectItem = useTagStore((state) => state.onSelectItem)
+  const refs = useAutocompleteStore((state) => state.refs)
+  const selectedItems = useAutocompleteStore((state) => state.selectedItems)
+  const onUpdateItem = useAutocompleteStore((state) => state.onUpdateItem)
+  const onSelectItem = useAutocompleteStore((state) => state.onSelectItem)
 
   return (
     <ul
       data-slot="selected-items-wrapper"
-      className={tags.selectedItemsWrapper()}
+      className={autocomplete.selectedItemsWrapper()}
       ref={refs.selectedItemsWrapperRef}
     >
       {selectedItems?.map((item) => {

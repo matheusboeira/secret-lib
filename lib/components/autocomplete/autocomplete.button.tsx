@@ -2,22 +2,22 @@ import { CheckedIcon } from '@/lib/core/icons'
 import { isEqual } from '@/lib/core/utils/is-equal'
 import { usePress } from '@/lib/hooks'
 import { forwardRef, useMemo } from 'react'
-import { useTagStore } from './hooks/use-tag-context'
-import { tags } from './tags.variants'
+import { autocomplete } from './autocomplete.variants'
+import { useAutocompleteStore } from './hooks/use-autocomplete-context'
 
-type TagButtonProps<T> = {
+type AutocompleteButtonProps<T> = {
   value: T
   children: React.ReactNode
   index: number
 }
 
-const TagButtonComponent = <T,>(
-  { value, index, children }: TagButtonProps<T>,
+const AutocompleteButtonComponent = <T,>(
+  { value, index, children }: AutocompleteButtonProps<T>,
   ref: React.Ref<HTMLButtonElement>
 ) => {
-  const refs = useTagStore((state) => state.refs)
-  const selectedItems = useTagStore((state) => state.selectedItems)
-  const onSelectItem = useTagStore((state) => state.onSelectItem)
+  const refs = useAutocompleteStore((state) => state.refs)
+  const selectedItems = useAutocompleteStore((state) => state.selectedItems)
+  const onSelectItem = useAutocompleteStore((state) => state.onSelectItem)
 
   const pressProps = usePress({
     onPress: () => onSelectItem(value),
@@ -47,14 +47,14 @@ const TagButtonComponent = <T,>(
   return (
     <button
       type="button"
-      className={tags.tagItem()}
+      className={autocomplete.buttonItem()}
       aria-checked={isSelected ? 'true' : 'false'}
       {...pressProps}
       ref={ref}
     >
       {children}
       <CheckedIcon
-        className={tags.checkedIcon([
+        className={autocomplete.checkedIcon([
           isSelected && 'ml-auto opacity-100 scale-100'
         ])}
       />
@@ -62,8 +62,10 @@ const TagButtonComponent = <T,>(
   )
 }
 
-export const TagButton = forwardRef(TagButtonComponent) as <T>(
-  props: TagButtonProps<T> & { ref?: React.Ref<HTMLButtonElement> }
-) => ReturnType<typeof TagButtonComponent>
+export const AutocompleteButton = forwardRef(AutocompleteButtonComponent) as <
+  T
+>(
+  props: AutocompleteButtonProps<T> & { ref?: React.Ref<HTMLButtonElement> }
+) => ReturnType<typeof AutocompleteButtonComponent>
 
-TagButtonComponent.displayName = 'SecretLib.TagItem'
+AutocompleteButtonComponent.displayName = 'SecretLib.AutocompleteButton'

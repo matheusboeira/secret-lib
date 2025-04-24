@@ -1,6 +1,6 @@
 import { createVariants } from '@/lib/core/utils/create-variants'
 
-export const tags = createVariants({
+export const autocomplete = createVariants({
   baseWrapper: [
     'group/base-wrapper relative rounded-xl px-1.5 py-1',
     'grid grid-cols-[1fr_auto] items-center justify-between gap-1',
@@ -14,14 +14,14 @@ export const tags = createVariants({
     'bg-transparent outline-none focus:outline-none'
   ],
   selectedItemsWrapper: ['flex items-center gap-1 flex-wrap'],
-  tagItem: [
+  buttonItem: [
     'flex justify-between w-full items-center gap-2 px-3 py-0.5 rounded-lg min-h-9 h-fit',
     'bg-transparent text-black dark:text-white z-40',
     'hover:bg-zinc-200 dark:hover:bg-zinc-800/70 transition-colors duration-100',
     'outline-none outline-offset-2 focus-visible:outline-blue-500',
     'focus-visible:bg-zinc-200 focus-visible:dark:bg-zinc-800/70'
   ],
-  listItemsWrapper: [
+  menuItemsWrapper: [
     'flex flex-col gap-1 items-start p-2 py-2 w-full z-40 max-h-64 lg:max-h-80',
     'absolute left-0 right-0 rounded-xl shadow-lg',
     'border border-zinc-100/10 dark:border-zinc-100/10',
@@ -34,7 +34,7 @@ export const tags = createVariants({
     'size-4 pointer-events-none',
     'opacity-0 scale-75 transition-all duration-200 ease-in-out'
   ],
-  actionButton: [
+  clearAndOpenButton: [
     'p-2 rounded-full z-20',
     'outline-none outline-offset-1 focus-visible:outline-blue-500',
     'hover:bg-zinc-200 dark:hover:bg-zinc-800/70'

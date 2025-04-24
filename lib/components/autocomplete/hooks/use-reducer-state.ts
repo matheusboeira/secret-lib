@@ -183,7 +183,7 @@ export const useReducerState = <T>(
     dispatch({ type: 'ON_SELECT_ITEM', payload: item })
   }
 
-  const onAddItem = (item: T) => {
+  const onAddItem = async (item: T) => {
     dispatch({ type: 'ON_ADD_ITEM', payload: item })
   }
 

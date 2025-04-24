@@ -1,26 +1,28 @@
 import { Virtualizer } from 'virtua'
-import { useTagStore } from './hooks/use-tag-context'
-import { TagButton } from './tags-button'
-import { tags } from './tags.variants'
+import { AutocompleteButton } from './autocomplete.button'
+import { autocomplete } from './autocomplete.variants'
+import { useAutocompleteStore } from './hooks/use-autocomplete-context'
 
-type TagListItemsProps<T> = {
+type AutocompleteMenuItemsProps<T> = {
   children: (item: T) => React.ReactNode
 }
 
-export const TagListItems = <T,>({ children }: TagListItemsProps<T>) => {
-  const refs = useTagStore((state) => state.refs)
-  const disclosure = useTagStore((state) => state.disclosure)
-  const filteredItems = useTagStore((state) => state.filteredItems)
+export const AutocompleteMenuItems = <T,>({
+  children
+}: AutocompleteMenuItemsProps<T>) => {
+  const refs = useAutocompleteStore((state) => state.refs)
+  const disclosure = useAutocompleteStore((state) => state.disclosure)
+  const filteredItems = useAutocompleteStore((state) => state.filteredItems)
   const indexes = filteredItems.length > 0 ? [0, filteredItems.length - 1] : []
 
   return (
     <div
       role="menu"
-      data-slot="list-items-wrapper"
+      data-slot="menu-items-wrapper"
       ref={refs.listItemsRef}
       aria-orientation="vertical"
       aria-expanded={disclosure.isOpen}
-      className={tags.listItemsWrapper([
+      className={autocomplete.menuItemsWrapper([
         disclosure.isOpen && 'opacity-100 translate-y-0 pointer-events-auto'
       ])}
     >
@@ -29,7 +31,7 @@ export const TagListItems = <T,>({ children }: TagListItemsProps<T>) => {
       )}
       <Virtualizer overscan={10} as="ul" item="li" keepMounted={indexes}>
         {filteredItems?.map((item, index) => (
-          <TagButton
+          <AutocompleteButton
             key={index}
             value={item}
             index={index}
@@ -39,11 +41,11 @@ export const TagListItems = <T,>({ children }: TagListItemsProps<T>) => {
             }}
           >
             {children(item as T)}
-          </TagButton>
+          </AutocompleteButton>
         ))}
       </Virtualizer>
     </div>
   )
 }
 
-TagListItems.displayName = 'SecretLib.TagListItems'
+AutocompleteMenuItems.displayName = 'SecretLib.AutocompleteMenuItems'

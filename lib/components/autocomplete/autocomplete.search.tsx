@@ -1,23 +1,25 @@
 import { useStateDebounce } from '@/lib/hooks/use-state-debounce'
 import { useShakeAnimation } from '@/lib/hooks/use-shake-animation'
 import { type KeyboardEvent, forwardRef, useImperativeHandle } from 'react'
-import type { TagSearchHandlers } from './@types'
-import { useTagStore } from './hooks/use-tag-context'
-import { tags } from './tags.variants'
+import type { AutocompleteSearchHandlers } from './@types'
+import { useAutocompleteStore } from './hooks/use-autocomplete-context'
+import { autocomplete } from './autocomplete.variants'
 
-const TagsSearchComponent = (
-  props: TagSearchHandlers,
+const AutocompleteSearchComponent = (
+  props: AutocompleteSearchHandlers,
   ref: React.Ref<HTMLInputElement>
 ) => {
-  const refs = useTagStore((state) => state.refs)
-  const disclosure = useTagStore((state) => state.disclosure)
-  const allowCustomValues = useTagStore((state) => state.allowCustomValues)
-  const tagId = useTagStore((state) => state.tagId)
-  const onSearch = useTagStore((state) => state.onSearch)
-  const onBackspace = useTagStore((state) => state.onBackspace)
-  const onAddItem = useTagStore((state) => state.onAddItem)
-  const onSelectItem = useTagStore((state) => state.onSelectItem)
-  const onFindItem = useTagStore((state) => state.onFindItem)
+  const refs = useAutocompleteStore((state) => state.refs)
+  const disclosure = useAutocompleteStore((state) => state.disclosure)
+  const allowCustomValues = useAutocompleteStore(
+    (state) => state.allowCustomValues
+  )
+  const autocompleteId = useAutocompleteStore((state) => state.autocompleteId)
+  const onSearch = useAutocompleteStore((state) => state.onSearch)
+  const onBackspace = useAutocompleteStore((state) => state.onBackspace)
+  const onAddItem = useAutocompleteStore((state) => state.onAddItem)
+  const onSelectItem = useAutocompleteStore((state) => state.onSelectItem)
+  const onFindItem = useAutocompleteStore((state) => state.onFindItem)
   const shake = useShakeAnimation({ ref: refs.inputRef })
 
   const [search, setSearch, { onDebounceChange }] = useStateDebounce({
@@ -78,10 +80,10 @@ const TagsSearchComponent = (
 
   return (
     <input
-      id={tagId}
+      id={autocompleteId}
       type="text"
       data-slot="input"
-      className={tags.input()}
+      className={autocomplete.input()}
       value={search}
       onChange={(e) => onHandleSearch(e.currentTarget.value)}
       placeholder="Search for..."
@@ -92,6 +94,6 @@ const TagsSearchComponent = (
   )
 }
 
-export const TagsSearch = forwardRef(TagsSearchComponent)
+export const AutocompleteSearch = forwardRef(AutocompleteSearchComponent)
 
-TagsSearchComponent.displayName = 'SecretLib.TagsSearch'
+AutocompleteSearchComponent.displayName = 'SecretLib.AutocompleteSearch'

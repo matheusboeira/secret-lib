@@ -1,7 +1,7 @@
 import type { UseDisclosureReturn } from '@/lib/hooks'
-import type { TagRefs } from '../hooks/use-refs'
+import type { AutocompleteRefs } from '../hooks/use-refs'
 
-type TagContextInnerHandlers<T> = {
+type AutocompleteContextInnerHandlers<T> = {
   onBackspace: () => void
   onClearItems: () => void
   onTrashItem: (item: T) => void
@@ -12,30 +12,30 @@ type TagContextInnerHandlers<T> = {
   onUpdateItem: (oldValue: T, newValue: T) => void
 }
 
-type TagContextOuterHandlers<T> = {
+type AutocompleteContextOuterHandlers<T> = {
   onSelectionChange?: (items: T[]) => void
 }
 
-export type TagContextProps<T> = TagContextInnerHandlers<T> &
-  TagContextOuterHandlers<T> & {
+export type AutocompleteContextProps<T> = AutocompleteContextInnerHandlers<T> &
+  AutocompleteContextOuterHandlers<T> & {
     items: T[]
     filteredItems: T[]
     selectedItems?: T[]
-    refs: TagRefs
+    refs: AutocompleteRefs
     disclosure: UseDisclosureReturn
     search: string
     allowCustomValues?: boolean | ((item: string) => T)
-    tagId: string
+    autocompleteId: string
   }
 
-export type TagProviderProps<T> = Pick<
-  TagContextProps<T>,
+export type AutocompleteProviderProps<T> = Pick<
+  AutocompleteContextProps<T>,
   'items' | 'selectedItems' | 'allowCustomValues' | 'onSelectionChange'
 > & {
   children: React.ReactNode
 }
 
-export type TagSearchHandlers = {
+export type AutocompleteSearchHandlers = {
   onBlur?: () => void
   onFocus?: () => void
 }
@@ -51,10 +51,10 @@ export type SelectedItemsProps<T> = {
   renderValue?: (item: T, handlers: SelectedItemHandlers<T>) => React.ReactNode
 }
 
-export type TagsProps<T> = Omit<SelectedItemsProps<T>, 'search'> &
-  TagSearchHandlers &
+export type AutocompleteProps<T> = Omit<SelectedItemsProps<T>, 'search'> &
+  AutocompleteSearchHandlers &
   Pick<
-    TagContextProps<T>,
+    AutocompleteContextProps<T>,
     'items' | 'selectedItems' | 'allowCustomValues' | 'onSelectionChange'
   > & {
     label?: React.ReactNode

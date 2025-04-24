@@ -1,6 +1,6 @@
 import { type RefObject, useRef } from 'react'
 
-export type TagRefs = {
+export type AutocompleteRefs = {
   inputWrapperRef: RefObject<HTMLDivElement | null>
   inputRef: RefObject<HTMLInputElement | null>
   listItemsRef: RefObject<HTMLDivElement | null>
@@ -10,7 +10,7 @@ export type TagRefs = {
   clearButtonRef: RefObject<HTMLButtonElement | null>
 }
 
-export const useTagRefs = (): TagRefs => {
+export const useAutocompleteRefs = (): AutocompleteRefs => {
   const inputWrapperRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const listItemsRef = useRef<HTMLDivElement | null>(null)

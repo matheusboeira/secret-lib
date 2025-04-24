@@ -1,3 +1,3 @@
 export * from './tooltip'
-export * from './tags'
+export * from './autocomplete'
 export * from './chip'
