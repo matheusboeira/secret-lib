@@ -5,7 +5,7 @@ import { useAutocompleteStore } from './hooks/use-autocomplete-context'
 
 type ItemKey<T> = { id?: string; _id?: string } & T
 
-export const SelectedItems = <T,>({
+export const AutocompleteSelectedItems = <T,>({
   search,
   children,
   renderValue
@@ -49,4 +49,4 @@ export const SelectedItems = <T,>({
   )
 }
 
-SelectedItems.displayName = 'SecretLib.SelectedItems'
+AutocompleteSelectedItems.displayName = 'SecretLib.AutocompleteSelectedItems'

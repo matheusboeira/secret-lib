@@ -54,9 +54,9 @@ const AutocompleteButtonComponent = <T,>(
     >
       {children}
       <CheckedIcon
-        className={autocomplete.checkedIcon([
+        className={autocomplete.checkedIcon(
           isSelected && 'ml-auto opacity-100 scale-100'
-        ])}
+        )}
       />
     </button>
   )

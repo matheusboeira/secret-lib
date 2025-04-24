@@ -16,10 +16,16 @@ const addItem = <T>(list: T[], item: T): T[] => {
   return list.some((i) => isEqual(i, item)) ? list : [...list, item]
 }
 
-const toggleItem = <T>(list: T[], item: T): T[] => {
+const toggleItem = <T>(
+  list: T[],
+  item: T,
+  mode: 'single' | 'multiple' = 'multiple'
+): T[] => {
   return list.some((i) => isEqual(i, item))
     ? list.filter((i) => !isEqual(i, item))
-    : [...list, item]
+    : mode === 'multiple'
+      ? [...list, item]
+      : [item]
 }
 
 const removeLast = <T>(list: T[]): T[] => {
@@ -57,7 +63,11 @@ const createReducerState = <T>() =>
     ON_ADD_ITEM: (state, action) => {
       const item = findEqualItem(state.items, action.payload) ?? action.payload
       const updatedItems = addItem(state.items, item)
-      const updatedSelectedItems = toggleItem(state.selectedItems ?? [], item)
+      const updatedSelectedItems = toggleItem(
+        state.selectedItems ?? [],
+        item,
+        state.mode
+      )
 
       return {
         ...state,
@@ -69,7 +79,11 @@ const createReducerState = <T>() =>
       const item = findEqualItem(state.items, action.payload)
       if (!item) return state
 
-      const updatedSelectedItems = toggleItem(state.selectedItems ?? [], item)
+      const updatedSelectedItems = toggleItem(
+        state.selectedItems ?? [],
+        item,
+        state.mode
+      )
 
       return {
         ...state,
@@ -129,7 +143,11 @@ const createReducerState = <T>() =>
       if (!item) return state
 
       const updatedItems = state.items.filter((i) => !isEqual(i, item))
-      const updatedSelectedItems = toggleItem(state.selectedItems ?? [], item)
+      const updatedSelectedItems = toggleItem(
+        state.selectedItems ?? [],
+        item,
+        state.mode
+      )
 
       return {
         ...state,

@@ -1,16 +1,7 @@
 import { cn } from '@/utils/cn'
+import type { ClassValue } from 'clsx'
 
-export type ClassDictionary = Record<string, any>
-export type ClassValue =
-  | ClassDictionary
-  | string
-  | number
-  | bigint
-  | null
-  | boolean
-  | undefined
-
-type CreateVariantsFunction = (extra?: ClassValue[]) => string
+type CreateVariantsFunction = (...inputs: ClassValue[]) => string
 
 export const createVariants = <T extends Record<string, string[]>>(
   classes: T
@@ -20,8 +11,8 @@ export const createVariants = <T extends Record<string, string[]>>(
   for (const key in classes) {
     const baseArray = classes[key] as string[]
 
-    const fn: CreateVariantsFunction = (extra: ClassValue[] = []) =>
-      cn([baseArray, extra])
+    const fn: CreateVariantsFunction = (...inputs: ClassValue[]) =>
+      cn([baseArray, ...(inputs ?? [])])
 
     result[key] = fn
   }

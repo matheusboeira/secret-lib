@@ -16,10 +16,11 @@ export function AutocompleteProvider<T>({
   selectedItems,
   allowCustomValues,
   children,
+  mode = 'multiple',
   onSelectionChange
 }: AutocompleteProviderProps<T>) {
   const state = useReducerState<T>(
-    { items, selectedItems },
+    { items, selectedItems, mode },
     { onSelectionChange }
   )
   const disclosure = useDisclosure()

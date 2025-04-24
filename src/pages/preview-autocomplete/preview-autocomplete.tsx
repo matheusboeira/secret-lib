@@ -14,7 +14,7 @@ export const PreviewAutocomplete = () => {
   const ref = useRef<HTMLInputElement>(null)
 
   return (
-    <PageLayout title="Preview Tags">
+    <PageLayout title="Preview Autocomplete">
       <button
         type="button"
         onClick={() => {
@@ -28,7 +28,7 @@ export const PreviewAutocomplete = () => {
         items={randomItems}
         selectedItems={selected}
         onSelectionChange={setSelected}
-        label="Tags"
+        label="Autocomplete"
         allowCustomValues
         ref={ref}
       >

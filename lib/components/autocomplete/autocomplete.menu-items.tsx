@@ -22,9 +22,9 @@ export const AutocompleteMenuItems = <T,>({
       ref={refs.listItemsRef}
       aria-orientation="vertical"
       aria-expanded={disclosure.isOpen}
-      className={autocomplete.menuItemsWrapper([
+      className={autocomplete.menuItemsWrapper(
         disclosure.isOpen && 'opacity-100 translate-y-0 pointer-events-auto'
-      ])}
+      )}
     >
       {filteredItems?.length === 0 && (
         <span className="p-2 text-sm">No items found.</span>

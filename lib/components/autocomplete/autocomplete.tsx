@@ -4,19 +4,19 @@ import type { AutocompleteProps } from './@types'
 import { AutocompleteLabel } from './autocomplete.label'
 import { AutocompleteMenuItems } from './autocomplete.menu-items'
 import { AutocompleteSearch } from './autocomplete.search'
-import { SelectedItems } from './autocomplete.selected-items'
+import { AutocompleteSelectedItems } from './autocomplete.selected-items'
 import { AutocompleteWrapper } from './autocomplete.wrapper'
 import { CloseButton } from './buttons/clear-button'
-import { OpenListItemsButton } from './buttons/open-list-items-button'
+import { OpenMenuItemsButton } from './buttons/open-menu-items-button'
 import { AutocompleteProvider } from './context/autocomplete.provider'
 
 const AutocompleteComponent = <T,>(
   {
+    label,
     children,
     renderValue,
     onBlur,
     onFocus,
-    label,
     ...props
   }: AutocompleteProps<T>,
   ref: React.Ref<HTMLInputElement>
@@ -27,7 +27,7 @@ const AutocompleteComponent = <T,>(
         {label && <AutocompleteLabel>{label}</AutocompleteLabel>}
         <AutocompleteWrapper>
           <div className="relative flex items-center flex-wrap gap-1">
-            <SelectedItems
+            <AutocompleteSelectedItems
               renderValue={renderValue}
               search={
                 <AutocompleteSearch
@@ -38,11 +38,11 @@ const AutocompleteComponent = <T,>(
               }
             >
               {children}
-            </SelectedItems>
+            </AutocompleteSelectedItems>
           </div>
           <div className="flex items-center self-start gap-0.5">
             <CloseButton />
-            <OpenListItemsButton />
+            <OpenMenuItemsButton />
           </div>
           <AutocompleteMenuItems>{children}</AutocompleteMenuItems>
         </AutocompleteWrapper>

@@ -1,13 +1,10 @@
-export type ReducerState<T> = {
+import type { AutocompleteContextOuterHandlers, AutocompleteProps } from '.'
+
+export type ReducerState<T> = Pick<
+  AutocompleteProps<T>,
+  'items' | 'selectedItems' | 'mode'
+> & {
   search: string
-  items: T[]
-  selectedItems?: T[]
-}
-
-export type InternalReducerState<T> = ReducerState<T>
-
-export type ReducerHandlers<T> = {
-  onSelectionChange?: (items: T[]) => void
 }
 
 export type ReducerActions<T> =
@@ -19,3 +16,6 @@ export type ReducerActions<T> =
   | { type: 'ON_TRASH_ITEM'; payload: T }
   | { type: 'ON_UPDATE_ITEM'; payload: { oldValue: T; newValue: T } }
   | { type: 'SYNC_SELECTED_ITEMS'; payload: T[] }
+
+export type InternalReducerState<T> = ReducerState<T>
+export type ReducerHandlers<T> = AutocompleteContextOuterHandlers<T>

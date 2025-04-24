@@ -1,5 +1,7 @@
 import type { UseDisclosureReturn } from '@/lib/hooks'
 import type { AutocompleteRefs } from '../hooks/use-refs'
+import type { autocomplete } from '../autocomplete.variants'
+import type { ClassValue } from 'clsx'
 
 type AutocompleteContextInnerHandlers<T> = {
   onBackspace: () => void
@@ -12,7 +14,7 @@ type AutocompleteContextInnerHandlers<T> = {
   onUpdateItem: (oldValue: T, newValue: T) => void
 }
 
-type AutocompleteContextOuterHandlers<T> = {
+export type AutocompleteContextOuterHandlers<T> = {
   onSelectionChange?: (items: T[]) => void
 }
 
@@ -24,13 +26,15 @@ export type AutocompleteContextProps<T> = AutocompleteContextInnerHandlers<T> &
     refs: AutocompleteRefs
     disclosure: UseDisclosureReturn
     search: string
-    allowCustomValues?: boolean | ((item: string) => T)
     autocompleteId: string
+    allowCustomValues?: boolean | ((item: string) => T)
+    mode?: 'single' | 'multiple'
+    classNames?: Record<keyof typeof autocomplete, ClassValue>
   }
 
 export type AutocompleteProviderProps<T> = Pick<
   AutocompleteContextProps<T>,
-  'items' | 'selectedItems' | 'allowCustomValues' | 'onSelectionChange'
+  'items' | 'selectedItems' | 'allowCustomValues' | 'onSelectionChange' | 'mode'
 > & {
   children: React.ReactNode
 }
@@ -55,7 +59,11 @@ export type AutocompleteProps<T> = Omit<SelectedItemsProps<T>, 'search'> &
   AutocompleteSearchHandlers &
   Pick<
     AutocompleteContextProps<T>,
-    'items' | 'selectedItems' | 'allowCustomValues' | 'onSelectionChange'
+    | 'items'
+    | 'selectedItems'
+    | 'allowCustomValues'
+    | 'onSelectionChange'
+    | 'mode'
   > & {
     label?: React.ReactNode
   }
