@@ -29,12 +29,17 @@ export const PreviewAutocomplete = () => {
         selectedItems={selected}
         onSelectionChange={setSelected}
         label="Autocomplete"
-        allowCustomValues
+        allowCustomValues={(value) => ({
+          id: value,
+          name: `Item ${value}`,
+          description: `Description ${value}`,
+          price: 100
+        })}
         ref={ref}
       >
-        {(item) => <div>{item.name}</div>}
+        {(item) => item.name}
       </Autocomplete>
-      <pre className="mt-96">{JSON.stringify(selected, null, 2)}</pre>
+      <pre className="mt-80">{JSON.stringify(selected, null, 2)}</pre>
     </PageLayout>
   )
 }
