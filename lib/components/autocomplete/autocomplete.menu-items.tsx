@@ -14,6 +14,7 @@ export const AutocompleteMenuItems = <T,>({
   const disclosure = useAutocompleteStore((state) => state.disclosure)
   const filteredItems = useAutocompleteStore((state) => state.filteredItems)
   const classNames = useAutocompleteStore((state) => state.classNames)
+  const emptyContent = useAutocompleteStore((state) => state.emptyContent)
   const indexes = filteredItems.length > 0 ? [0, filteredItems.length - 1] : []
 
   return (
@@ -29,23 +30,31 @@ export const AutocompleteMenuItems = <T,>({
       )}
     >
       {filteredItems?.length === 0 && (
-        <span className="p-2 text-sm">No items found.</span>
+        <div
+          className={autocomplete.emptyContentWrapper(
+            classNames?.emptyContentWrapper
+          )}
+        >
+          {emptyContent}
+        </div>
       )}
-      <Virtualizer overscan={10} as="ul" item="li" keepMounted={indexes}>
-        {filteredItems?.map((item, index) => (
-          <AutocompleteButton
-            key={index}
-            value={item}
-            index={index}
-            ref={(ref) => {
-              if (!ref) return
-              refs.buttomItemRefs.current[index] = ref
-            }}
-          >
-            {children(item as T)}
-          </AutocompleteButton>
-        ))}
-      </Virtualizer>
+      {filteredItems?.length > 0 && (
+        <Virtualizer overscan={10} as="ul" item="li" keepMounted={indexes}>
+          {filteredItems?.map((item, index) => (
+            <AutocompleteButton
+              key={index}
+              value={item}
+              index={index}
+              ref={(ref) => {
+                if (!ref) return
+                refs.buttomItemRefs.current[index] = ref
+              }}
+            >
+              {children(item as T)}
+            </AutocompleteButton>
+          ))}
+        </Virtualizer>
+      )}
     </div>
   )
 }

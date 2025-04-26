@@ -16,6 +16,7 @@ const AutocompleteSearchComponent = (
   )
   const autocompleteId = useAutocompleteStore((state) => state.autocompleteId)
   const classNames = useAutocompleteStore((state) => state.classNames)
+  const placeholder = useAutocompleteStore((state) => state.placeholder)
   const onSearch = useAutocompleteStore((state) => state.onSearch)
   const onBackspace = useAutocompleteStore((state) => state.onBackspace)
   const onAddItem = useAutocompleteStore((state) => state.onAddItem)
@@ -87,7 +88,7 @@ const AutocompleteSearchComponent = (
       className={autocomplete.input(classNames?.input)}
       value={search}
       onChange={(e) => onHandleSearch(e.currentTarget.value)}
-      placeholder="Search for..."
+      placeholder={placeholder}
       onKeyDown={onKeyDown}
       ref={refs.inputRef}
       {...props}

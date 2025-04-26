@@ -9,6 +9,7 @@ import { AutocompleteWrapper } from './autocomplete.wrapper'
 import { CloseButton } from './buttons/clear-button'
 import { OpenMenuItemsButton } from './buttons/open-menu-items-button'
 import { AutocompleteProvider } from './context/autocomplete.provider'
+import { AutocompleteDescription } from './autocomplete.description'
 
 const AutocompleteComponent = <T,>(
   {
@@ -46,6 +47,7 @@ const AutocompleteComponent = <T,>(
           </div>
           <AutocompleteMenuItems>{children}</AutocompleteMenuItems>
         </AutocompleteWrapper>
+        <AutocompleteDescription />
       </div>
     </AutocompleteProvider>
   )

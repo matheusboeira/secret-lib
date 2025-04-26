@@ -16,9 +16,13 @@ export function AutocompleteProvider<T>({
   selectedItems,
   allowCustomValues,
   children,
-  onSelectionChange,
+  classNames,
+  description,
+  isRequired,
   mode = 'multiple',
-  classNames
+  placeholder = 'Search for...',
+  emptyContent = 'No items found.',
+  onSelectionChange
 }: AutocompleteProviderProps<T>) {
   const state = useReducerState<T>(
     { items, selectedItems, mode },
@@ -47,6 +51,10 @@ export function AutocompleteProvider<T>({
       allowCustomValues,
       autocompleteId,
       classNames,
+      description,
+      emptyContent,
+      placeholder,
+      isRequired,
       ...state
     })
   )

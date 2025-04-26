@@ -15,26 +15,25 @@ export const PreviewAutocomplete = () => {
 
   return (
     <PageLayout title="Preview Autocomplete">
-      <button
-        type="button"
-        onClick={() => {
-          setSelected([])
-          ref.current?.focus()
-        }}
-      >
-        Reset
-      </button>
       <Autocomplete
         items={randomItems}
         selectedItems={selected}
         onSelectionChange={setSelected}
         label="Autocomplete"
+        placeholder="Search for an item..."
+        emptyContent={
+          <span className="text-red-500">
+            No item found. Try another search.
+          </span>
+        }
+        description="This is a description"
         allowCustomValues={(value) => ({
           id: value,
           name: `Item ${value}`,
           description: `Description ${value}`,
           price: 100
         })}
+        isRequired
         ref={ref}
       >
         {(item) => item.name}
