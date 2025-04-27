@@ -10,7 +10,7 @@ export type UseTransitionVisibilityOptions = {
 }
 
 export const useTransitionVisibility = ({
-  enterDelay = 100,
+  enterDelay = 0,
   exitDelay = 200,
   isDisabled = false,
   onEnter,
@@ -26,18 +26,21 @@ export const useTransitionVisibility = ({
     onExit
   })
 
-  const onShow = useCallback(() => {
-    if (isDisabled) return
-    if (timeoutRef.current) clearTimeout(timeoutRef.current)
-    setIsMounted(true)
+  const onShow = useCallback(
+    (overrideDelay?: number) => {
+      if (isDisabled) return
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      setIsMounted(true)
 
-    rafRef.current = requestAnimationFrame(() => {
-      timeoutRef.current = window.setTimeout(() => {
-        setIsVisible(true)
-        onEnterRef?.()
-      }, enterDelay)
-    })
-  }, [enterDelay, isDisabled, onEnterRef])
+      rafRef.current = requestAnimationFrame(() => {
+        timeoutRef.current = window.setTimeout(() => {
+          setIsVisible(true)
+          onEnterRef?.()
+        }, overrideDelay ?? enterDelay)
+      })
+    },
+    [enterDelay, isDisabled, onEnterRef]
+  )
 
   const onHide = useCallback(() => {
     if (isDisabled) return
@@ -50,6 +53,17 @@ export const useTransitionVisibility = ({
     }, exitDelay)
   }, [exitDelay, isDisabled, onExitRef])
 
+  const onClickAnimation = useCallback(
+    (callback?: () => void, enterDelay = 100) => {
+      if (isDisabled) return
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      onHide()
+      callback?.()
+      onShow(enterDelay)
+    },
+    [isDisabled, onShow, onHide]
+  )
+
   useEffect(() => {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
@@ -60,7 +74,8 @@ export const useTransitionVisibility = ({
   return {
     isMounted,
     isVisible,
-    onShow,
-    onHide
+    onShow: onShow as () => void,
+    onHide,
+    onClickAnimation
   }
 }
