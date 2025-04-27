@@ -10,6 +10,8 @@ type MouseEvents = {
   onClick?: React.MouseEventHandler<HTMLElement>
 }
 
+export type Coordinates = { x: number; y: number }
+
 export type TooltipProps = Omit<MouseEvents, 'onMouseMove'> & {
   /**
    * Children to be wrapped by the tooltip.
@@ -24,7 +26,7 @@ export type TooltipProps = Omit<MouseEvents, 'onMouseMove'> & {
    * Offset for the tooltip position.
    * @default { x: 10, y: 15 }
    */
-  offset?: { x: number; y: number }
+  offset?: Coordinates
   /**
    * Whether the tooltip is disabled.
    * @default false
@@ -40,4 +42,9 @@ export type TooltipProps = Omit<MouseEvents, 'onMouseMove'> & {
    * @default document.body
    */
   portalChildren?: HTMLElement
+  /**
+   * If the tooltip should reanimate (remount component) on click.
+   * @default true
+   */
+  shouldReanimateOnClick?: boolean
 }

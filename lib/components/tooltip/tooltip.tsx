@@ -1,7 +1,6 @@
 import { cloneElement, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { useTransitionVisibility } from '../../hooks'
-import { useCallbackRefs } from '../../hooks/use-callback-refs'
+import { usePress, useTransitionVisibility } from '../../hooks'
 import type { TooltipProps } from './@types'
 import { tooltip } from './tooltip.variants'
 
@@ -16,17 +15,35 @@ export const Tooltip = ({
   onClick,
   offset = { x: 10, y: 15 },
   portalChildren = document.body,
-  isDisabled = false
+  isDisabled = false,
+  shouldReanimateOnClick = true
 }: TooltipProps) => {
-  const coordinatesRef = useRef({ x: 0, y: 0 })
   const tooltipRef = useRef<HTMLDivElement | null>(null)
   const animationFrameRef = useRef<number | null>(null)
-  const { onClick: onClickRef } = useCallbackRefs({ onClick })
 
-  const { isVisible, isMounted, onShow, onHide } = useTransitionVisibility({
-    isDisabled,
-    onEnter: onMouseEnter as () => void,
-    onExit: onMouseLeave as () => void
+  const { isVisible, isMounted, onShow, onHide, onClickAnimation } =
+    useTransitionVisibility({
+      isDisabled,
+      onEnter: onMouseEnter as () => void,
+      onExit: onMouseLeave as () => void
+    })
+
+  const pressProps = usePress({
+    tabIndex: -1,
+    onPress: (e) => {
+      if (!onClick) return
+      const event = e as React.MouseEvent<HTMLElement>
+      onClick(event)
+
+      onClickAnimation(() => {
+        animationFrameRef.current = requestAnimationFrame(() => {
+          if (!tooltipRef.current || !shouldReanimateOnClick) return
+          const { x, y } = calculateCoordinates(event)
+          setCoordinates(x, y)
+          animationFrameRef.current = null
+        })
+      })
+    }
   })
 
   const calculateCoordinates = (e: React.MouseEvent) => {
@@ -49,21 +66,22 @@ export const Tooltip = ({
     return { x, y }
   }
 
+  const setCoordinates = (x: number, y: number) => {
+    if (!tooltipRef.current) return
+    tooltipRef.current.style.left = `${x}px`
+    tooltipRef.current.style.top = `${y}px`
+  }
+
   const onMouseMove = (e: React.MouseEvent) => {
     if (isDisabled) return
 
     const { x, y } = calculateCoordinates(e)
-    coordinatesRef.current = { x, y }
+    if (animationFrameRef.current) return
 
-    if (!animationFrameRef.current) {
-      animationFrameRef.current = requestAnimationFrame(() => {
-        if (tooltipRef.current) {
-          tooltipRef.current.style.left = `${coordinatesRef.current.x}px`
-          tooltipRef.current.style.top = `${coordinatesRef.current.y}px`
-        }
-        animationFrameRef.current = null
-      })
-    }
+    animationFrameRef.current = requestAnimationFrame(() => {
+      setCoordinates(x, y)
+      animationFrameRef.current = null
+    })
   }
 
   useEffect(() => {
@@ -75,10 +93,10 @@ export const Tooltip = ({
   }, [])
 
   const ClonedElement = cloneElement(children, {
-    onClick: onClickRef,
     onMouseEnter: onShow,
     onMouseLeave: onHide,
-    onMouseMove
+    onMouseMove,
+    ...pressProps
   })
 
   return (
