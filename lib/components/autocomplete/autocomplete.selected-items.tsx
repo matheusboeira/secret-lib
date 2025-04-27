@@ -3,8 +3,6 @@ import type { SelectedItemsProps } from './@types'
 import { autocomplete } from './autocomplete.variants'
 import { useAutocompleteStore } from './hooks/use-autocomplete-context'
 
-type ItemKey<T> = { id?: string; _id?: string } & T
-
 export const AutocompleteSelectedItems = <T,>({
   search,
   children,
@@ -24,10 +22,7 @@ export const AutocompleteSelectedItems = <T,>({
       )}
       ref={refs.selectedItemsWrapperRef}
     >
-      {selectedItems?.map((item) => {
-        const _item = item as ItemKey<T>
-        const key = _item.id ?? _item._id ?? JSON.stringify(item)
-
+      {selectedItems?.map((item, key) => {
         if (renderValue) {
           return (
             <li key={key}>
