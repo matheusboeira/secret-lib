@@ -10,7 +10,7 @@ export type UseTransitionVisibilityOptions = {
 }
 
 export const useTransitionVisibility = ({
-  enterDelay = 0,
+  enterDelay = 100,
   exitDelay = 200,
   isDisabled = false,
   onEnter,
@@ -32,11 +32,14 @@ export const useTransitionVisibility = ({
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
       setIsMounted(true)
 
+      const delay =
+        typeof overrideDelay === 'number' ? overrideDelay : enterDelay
+
       rafRef.current = requestAnimationFrame(() => {
         timeoutRef.current = window.setTimeout(() => {
           setIsVisible(true)
           onEnterRef?.()
-        }, overrideDelay ?? enterDelay)
+        }, delay ?? enterDelay)
       })
     },
     [enterDelay, isDisabled, onEnterRef]
