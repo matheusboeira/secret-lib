@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { usePress, useTransitionVisibility } from '../../hooks'
 import type { TooltipProps } from './@types'
 import { tooltip } from './tooltip.variants'
+import { cn } from '@/lib/core/utils/cn'
 
 const OFFSET_BORDER = 10
 
@@ -14,12 +15,14 @@ export const Tooltip = ({
   onMouseLeave,
   onClick,
   offset = { x: 10, y: 15 },
-  portalChildren = document.body,
+  portalChildren = null,
+  portalTooltip = document.body,
   isDisabled = false,
   shouldReanimateOnClick = true
 }: TooltipProps) => {
   const tooltipRef = useRef<HTMLDivElement | null>(null)
   const animationFrameRef = useRef<number | null>(null)
+  const shouldReanimate = onClick ? shouldReanimateOnClick : false
 
   const { isVisible, isMounted, onShow, onHide, onClickAnimation } =
     useTransitionVisibility({
@@ -35,9 +38,10 @@ export const Tooltip = ({
       const event = e as React.MouseEvent<HTMLElement>
       onClick(event)
 
+      if (!tooltipRef.current || !shouldReanimate) return
+
       onClickAnimation(() => {
         animationFrameRef.current = requestAnimationFrame(() => {
-          if (!tooltipRef.current || !shouldReanimateOnClick) return
           const { x, y } = calculateCoordinates(event)
           setCoordinates(x, y)
           animationFrameRef.current = null
@@ -96,28 +100,33 @@ export const Tooltip = ({
     onMouseEnter: onShow,
     onMouseLeave: onHide,
     onMouseMove,
+    className: cn('outline-none', children.props.className),
     ...pressProps
   })
 
   return (
     <>
       {ClonedElement}
-      {isMounted &&
-        createPortal(
-          <div
-            data-slot="base"
-            ref={tooltipRef}
-            className={tooltip.base([
-              isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90',
-              classNames?.base
-            ])}
-          >
-            <div className={tooltip.content([classNames?.content])}>
-              {typeof content === 'function' ? content(isVisible) : content}
-            </div>
-          </div>,
-          portalChildren
-        )}
+      {isMounted && (
+        <>
+          {!!portalChildren && createPortal(ClonedElement, portalChildren)}
+          {createPortal(
+            <div
+              data-slot="base"
+              ref={tooltipRef}
+              className={tooltip.base([
+                isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90',
+                classNames?.base
+              ])}
+            >
+              <div className={tooltip.content([classNames?.content])}>
+                {typeof content === 'function' ? content(isVisible) : content}
+              </div>
+            </div>,
+            portalTooltip
+          )}
+        </>
+      )}
     </>
   )
 }

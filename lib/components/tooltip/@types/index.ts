@@ -3,20 +3,21 @@ type ClassNames = {
   content?: string
 }
 
-type MouseEvents = {
+type ChildrenProps = {
   onMouseEnter?: React.MouseEventHandler<HTMLElement>
   onMouseLeave?: React.MouseEventHandler<HTMLElement>
   onMouseMove?: React.MouseEventHandler<HTMLElement>
   onClick?: React.MouseEventHandler<HTMLElement>
+  className?: string
 }
 
 export type Coordinates = { x: number; y: number }
 
-export type TooltipProps = Omit<MouseEvents, 'onMouseMove'> & {
+export type TooltipProps = Omit<ChildrenProps, 'onMouseMove'> & {
   /**
    * Children to be wrapped by the tooltip.
    */
-  children: React.ReactElement<MouseEvents>
+  children: React.ReactElement<ChildrenProps>
   /**
    * Content to be displayed in the tooltip.
    * Can be a ReactNode or a function that returns a ReactNode.
@@ -37,11 +38,18 @@ export type TooltipProps = Omit<MouseEvents, 'onMouseMove'> & {
    */
   classNames?: ClassNames
   /**
-   * Where the children is going to be rendered.
+   * Where the children is going to be rendered after being hovered.
+   * If not provided, only the tooltip will be rendered.
+   *
+   * @default null
+   */
+  portalChildren?: HTMLElement | null
+  /**
+   * Where the tooltip is going to be rendered.
    *
    * @default document.body
    */
-  portalChildren?: HTMLElement
+  portalTooltip?: HTMLElement
   /**
    * If the tooltip should reanimate (remount component) on click.
    * @default true
