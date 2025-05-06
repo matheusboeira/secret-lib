@@ -10,41 +10,32 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"keywords": [
-		"react",
-		"hooks",
-		"components",
-		"tailwindcss"
-	],
+	"keywords": ["react", "hooks", "components", "tailwindcss"],
 	"main": "dist/index.cjs",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist",
-		"README.md",
-		"LICENSE"
-	],
+	"files": ["dist", "README.md", "LICENSE"],
 	"sideEffects": false,
 	"type": "module",
 	"exports": {
 		".": {
-			"types": "./dist/lib/index.d.ts",
+			"types": "./dist/index.d.ts",
 			"import": "./dist/index.mjs",
 			"require": "./dist/index.cjs"
 		},
 		"./hooks": {
-			"types": "./dist/lib/hooks/index.d.ts",
-			"import": "./dist/lib/hooks/index.mjs",
-			"require": "./dist/lib/hooks/index.cjs"
+			"types": "./dist/hooks/index.d.ts",
+			"import": "./dist/hooks/index.mjs",
+			"require": "./dist/hooks/index.cjs"
 		},
 		"./tooltip": {
-			"types": "./dist/lib/components/tooltip/index.d.ts",
-			"import": "./dist/lib/components/tooltip/index.mjs",
-			"require": "./dist/lib/components/tooltip/index.cjs"
+			"types": "./dist/components/tooltip/index.d.ts",
+			"import": "./dist/components/tooltip/index.mjs",
+			"require": "./dist/components/tooltip/index.cjs"
 		},
 		"./autocomplete": {
-			"types": "./dist/lib/components/autocomplete/index.d.ts",
-			"import": "./dist/lib/components/autocomplete/index.mjs",
-			"require": "./dist/lib/components/autocomplete/index.cjs"
+			"types": "./dist/components/autocomplete/index.d.ts",
+			"import": "./dist/components/autocomplete/index.mjs",
+			"require": "./dist/components/autocomplete/index.cjs"
 		}
 	},
 	"scripts": {
