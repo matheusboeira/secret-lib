@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
+
+export type Listener<T> = (state: T) => void
 
 export type StoreMethods<TState> = {
   get: () => TState
@@ -9,21 +11,5 @@ export function useGlobalStore<T, TState>(
   selector: (state: TState) => T,
   store: StoreMethods<TState>
 ): T {
-  const [selectedState, setSelectedState] = useState(() =>
-    selector(store.get())
-  )
-
-  useEffect(() => {
-    const callback = (newState: TState) => {
-      const nextSelected = selector(newState)
-
-      setSelectedState((prev) =>
-        Object.is(prev, nextSelected) ? prev : nextSelected
-      )
-    }
-
-    return store.subscribe(callback)
-  }, [selector, store.subscribe])
-
-  return selectedState
+  return useSyncExternalStore(store.subscribe, () => selector(store.get()))
 }
