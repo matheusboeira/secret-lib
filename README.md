@@ -32,3 +32,17 @@ It uses the `cn` utility function, which relies on `clsx` and `tailwind-merge`. 
 pnpm add secret-lib tailwind-merge clsx
 ```
 
+Then, you'll need to update your `tailwind.config.js`
+
+```ts
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/secret-lib/**/*.{js,ts,jsx,tsx}' /** add this line */
+  ],
+  darkMode: 'class',
+  /** Other configs */
+}
+```
