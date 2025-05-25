@@ -36,6 +36,21 @@ const AutocompleteButtonComponent = <T,>(
         if (nextIndex > lastIndex) nextIndex = 0
 
         items[nextIndex]?.focus()
+        return
+      }
+
+      if (e.key === 'Backspace') {
+        e.preventDefault()
+        e.stopPropagation()
+        refs.inputRef.current?.focus()
+        return
+      }
+
+      if (/^[a-zA-Z0-9]$/.test(e.key) && refs.inputRef.current) {
+        e.preventDefault()
+
+        refs.inputRef.current.value = e.key
+        refs.inputRef.current.focus()
       }
     }
   })
