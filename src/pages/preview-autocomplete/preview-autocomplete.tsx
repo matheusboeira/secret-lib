@@ -1,9 +1,9 @@
 import { PageLayout } from '@/components/page-layout'
 import { Autocomplete } from '@/lib/components'
 import { useRef, useState } from 'react'
-import { type ChipItem, ChipPicker } from './chip-picker/chip-picker'
+import type { ChipItem } from './chip-picker/chip-picker'
 
-const randomItems = Array.from({ length: 10000 }, (_, i) => {
+const randomItems = Array.from({ length: 100 }, (_, i) => {
   return {
     name: `Item ${i}`,
     color: 'blue',
@@ -22,13 +22,6 @@ export const PreviewAutocomplete = () => {
         selectedItems={selected}
         onSelectionChange={setSelected}
         label="Autocomplete"
-        renderValue={(value, handlers) => (
-          <ChipPicker
-            item={value}
-            onChange={handlers.onUpdateItem}
-            onClose={handlers.onClearItem}
-          />
-        )}
         allowCustomValues={(value) => ({
           name: value,
           color: 'default',

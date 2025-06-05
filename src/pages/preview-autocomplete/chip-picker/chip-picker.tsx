@@ -43,9 +43,7 @@ export const ChipPicker = ({ item, onClose, onChange }: ChipPickerProps) => {
         })
       }}
     >
-      <Chip color={item.color as ChipProps['color']} onClose={onClose}>
-        {item.name}
-      </Chip>
+      <Chip onClose={onClose}>{item.name}</Chip>
     </Tooltip>
   )
 }
