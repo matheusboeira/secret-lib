@@ -10,21 +10,13 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"keywords": [
-		"react",
-		"hooks",
-		"components",
-		"tailwindcss"
-	],
+	"keywords": ["react", "hooks", "components", "tailwindcss"],
 	"main": "dist/index.cjs",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist",
-		"README.md",
-		"LICENSE"
-	],
+	"files": ["dist", "README.md", "LICENSE"],
 	"sideEffects": false,
 	"type": "module",
+	"module": "dist/index.mjs",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
