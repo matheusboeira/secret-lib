@@ -24,8 +24,8 @@ importers:
         specifier: ^3.4.17
         version: 3.4.17
       virtua:
-        specifier: ^0.41.3
-        version: 0.41.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.49.0
+        version: 0.49.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4
@@ -1382,8 +1382,8 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  virtua@0.41.3:
-    resolution: {integrity: sha512-X0eG4hIsJFrmgiq5kiyxdBqu+83mn2ArO9L16flRg1cN0BrafOmRVYmYijgClKElTlhqLJ57cdGby0X6az2LGw==}
+  virtua@0.49.0:
+    resolution: {integrity: sha512-yra9TIPqkVIn+LOjCZO8e6C6UsCiCIHJXt3yfnCP02r2sLpgr6mlispn3SHtWZv2aK2tuZLo6Sp2v6qmSrSVfw==}
     peerDependencies:
       react: '>=16.14.0'
       react-dom: '>=16.14.0'
@@ -2657,7 +2657,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  virtua@0.41.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  virtua@0.49.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     optionalDependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
