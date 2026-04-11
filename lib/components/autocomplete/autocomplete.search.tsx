@@ -1,9 +1,9 @@
-import { useStateDebounce } from '@/lib/hooks/use-state-debounce'
 import { useShakeAnimation } from '@/lib/hooks/use-shake-animation'
+import { useStateDebounce } from '@/lib/hooks/use-state-debounce'
 import { type KeyboardEvent, forwardRef, useImperativeHandle } from 'react'
 import type { AutocompleteSearchHandlers } from './@types'
-import { useAutocompleteStore } from './hooks/use-autocomplete-context'
 import { autocomplete } from './autocomplete.variants'
+import { useAutocompleteStore } from './hooks/use-autocomplete-context'
 
 const AutocompleteSearchComponent = (
   props: AutocompleteSearchHandlers,
@@ -25,7 +25,7 @@ const AutocompleteSearchComponent = (
   const shake = useShakeAnimation({ ref: refs.inputRef })
 
   const [search, setSearch, { onDebounceChange }] = useStateDebounce({
-    callback: onSearch,
+    onChange: onSearch,
     defaultValue: '',
     delay: 300
   })

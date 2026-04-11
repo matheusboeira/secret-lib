@@ -39,7 +39,7 @@ export const AutocompleteMenuItems = <T,>({
         </div>
       )}
       {filteredItems?.length > 0 && (
-        <Virtualizer overscan={10} as="ul" item="li" keepMounted={indexes}>
+        <Virtualizer as="ul" item="li" keepMounted={indexes}>
           {filteredItems?.map((item, index) => (
             <AutocompleteButton
               key={index}
